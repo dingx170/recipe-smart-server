@@ -31,11 +31,30 @@ class RecipeModel {
         cost: Number,
         photo: Buffer,
         likes: Number,
-        meal_type: MealType,
-        cuisine_type: CuisineType,
-        feature_type: FeatureType,
-        restrictions: [AllergyType],
-        recipe_tags: [RecipeTag]
+        meal_type: {
+          type: String,
+          enum: MealType,
+        },
+        cuisine_type: {
+          type: String,
+          enum: CuisineType,
+        },
+        feature_type: {
+          type: String,
+          enum: FeatureType,
+        },
+        restrictions: [
+          {
+            type: String,
+            enum: AllergyType,
+          }
+          ],
+        recipe_tags: [
+          {
+            type: String,
+            enum: RecipeTag,
+          }
+          ]
       }, {collection: 'recipes'}
     );
   }

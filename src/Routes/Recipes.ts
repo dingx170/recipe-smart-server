@@ -4,7 +4,7 @@ import {RecipeModel} from '../Models/RecipeModel';
 
 
 let recipesRoute = express.Router();
-let recipes = new RecipeModel();
+let recipes = new RecipeModel();  // TO-DO: maybe make it singleton
 
 // view all recipes
 recipesRoute.get("/", (req : Request, res : Response) => {
