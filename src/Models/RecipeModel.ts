@@ -1,4 +1,4 @@
-import mongoose, {Model, Schema} from "mongoose"
+import  {Schema} from "mongoose"
 import {DataAccess} from '../DataAccess'
 import {IRecipeModel} from '../Interfaces/IRecipeModel'
 
@@ -15,11 +15,22 @@ class RecipeModel {
   }
 
   public createSchema(): void {
-    this.schema = new mongoose.Schema(
+    this.schema = new Schema(
       {
-        recipe_id: String,
         name: String,
-        member_id: String
+        member_id: Schema.Types.ObjectId,
+        date: Date,
+        steps: String,
+        ingredients: [[Schema.Types.ObjectId, Number]],
+        group: Number,
+        cost: Number,
+        photo: Buffer,
+        likes: Number,
+        meal_type: MEALTYPE,
+        cuisine_type: CUISINETYPE,
+        feature_type: FEATURETYPE,
+        restrictions: [ALLERGYTYPE],
+        recipe_tags: [RECIPETAG]
       }, {collection: 'recipes'}
     );
   }

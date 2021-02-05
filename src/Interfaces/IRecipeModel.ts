@@ -1,8 +1,8 @@
-import mongoose, {ObjectId, Date} from "mongoose"
+import {ObjectId, Date, Document} from "mongoose"
 
-interface IRecipeModel extends mongoose.Document {
+interface IRecipeModel extends Document {
     name: String;
-    member_id: String;
+    member_id: ObjectId;
     date: Date;
     steps: String;
     ingredients: [[ObjectId, Number]];
@@ -13,8 +13,8 @@ interface IRecipeModel extends mongoose.Document {
     meal_type: MEALTYPE;
     cuisine_type: CUISINETYPE;
     feature_type: FEATURETYPE;
-    restrictions: ALLERGYTYPE;
-    recipe_tags: RECIPETAG;
+    restrictions: [ALLERGYTYPE];
+    recipe_tags: [RECIPETAG];
 }
 
 export {IRecipeModel};
