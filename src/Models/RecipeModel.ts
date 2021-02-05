@@ -5,6 +5,7 @@ import {MealType} from '../Enums/MealType'
 import {CuisineType} from '../Enums/CuisineType'
 import {FeatureType} from '../Enums/FeatureType'
 import {AllergyType} from '../Enums/AllergyType'
+import {RecipeTag} from '../Enums/RecipeTag'
 
 let mongooseConnection = DataAccess.mongooseConnection;
 // let mongooseObg = DataAccess.mongooseInstance;
@@ -34,7 +35,7 @@ class RecipeModel {
         cuisine_type: CuisineType,
         feature_type: FeatureType,
         restrictions: [AllergyType],
-        recipe_tags: [RECIPETAG]
+        recipe_tags: [RecipeTag]
       }, {collection: 'recipes'}
     );
   }
