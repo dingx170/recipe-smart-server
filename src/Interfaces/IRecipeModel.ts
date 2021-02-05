@@ -1,4 +1,5 @@
 import {ObjectId, Date, Document} from "mongoose"
+import {MealType} from '../Enums/MealType'
 
 interface IRecipeModel extends Document {
     name: String;
@@ -10,7 +11,7 @@ interface IRecipeModel extends Document {
     cost: Number;
     photo: Buffer;
     likes: Number;
-    meal_type: MEALTYPE;
+    meal_type: MealType;
     cuisine_type: CUISINETYPE;
     feature_type: FEATURETYPE;
     restrictions: [ALLERGYTYPE];
