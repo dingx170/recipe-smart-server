@@ -1,13 +1,42 @@
-import mongoose, {Schema} from "mongoose"
+import mongoose, {Model, Schema} from "mongoose"
+import {DataAccess} from '../DataAccess'
+import {IRecipeModel} from '../Interfaces/IRecipeModel'
 
-// let mongooseConnection = DataAccess.mon
+let mongooseConnection = DataAccess.mongooseConnection;
+// let mongooseObg = DataAccess.mongooseInstance;
 
-const RecipeSchema: Schema = new Schema({
-    recipe_id: String,
-    name: String,
-    member_id: String
-  });
+class RecipeModel {
+  public schema: any;
+  public model: any;
 
-export {RecipeSchema};
+  public constructor() {
+    this.createSchema();
+    this.createModel();
+  }
+
+  public createSchema(): void {
+    this.schema = new mongoose.Schema(
+      {
+        recipe_id: String,
+        name: String,
+        member_id: String
+      }, {collection: 'recipes'}
+    );
+  }
+
+  public createModel(): void {
+    this.model = mongooseConnection.model<IRecipeModel>("Recipes", this.schema);
+  }
+
+  public retrieveAllRecipes(response: any): any {
+    var query = this.model.find({});
+    query.exec( (err, itemArray) => {
+      response.json(itemArray);
+    });
+  }
+  
+}
+
+export {RecipeModel};
 
     
