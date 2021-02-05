@@ -2,6 +2,7 @@ import  {Schema} from "mongoose"
 import {DataAccess} from '../DataAccess'
 import {IRecipeModel} from '../Interfaces/IRecipeModel'
 import {MealType} from '../Enums/MealType'
+import {CuisineType} from '../Enums/CuisineType'
 
 let mongooseConnection = DataAccess.mongooseConnection;
 // let mongooseObg = DataAccess.mongooseInstance;
@@ -28,7 +29,7 @@ class RecipeModel {
         photo: Buffer,
         likes: Number,
         meal_type: MealType,
-        cuisine_type: CUISINETYPE,
+        cuisine_type: CuisineType,
         feature_type: FEATURETYPE,
         restrictions: [ALLERGYTYPE],
         recipe_tags: [RECIPETAG]
