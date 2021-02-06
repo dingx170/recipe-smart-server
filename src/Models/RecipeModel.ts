@@ -6,6 +6,7 @@ import {CuisineType} from '../Enums/CuisineType'
 import {FeatureType} from '../Enums/FeatureType'
 import {AllergyType} from '../Enums/AllergyType'
 import {RecipeTag} from '../Enums/RecipeTag'
+import { ObjectId } from "mongodb"
 
 let mongooseConnection = DataAccess.mongooseConnection;
 // let mongooseObg = DataAccess.mongooseInstance;
@@ -64,9 +65,37 @@ class RecipeModel {
   }
 
   public retrieveAllRecipes(response: any): any {
-    var query = this.model.find({});
+    let query = this.model.find({});
     query.exec( (err, itemArray) => {
       response.json(itemArray);
+    });
+  }
+
+  // TO-DO: change ObjectId to String for foreign key
+  public retrieveRecipeByID(response: any, filter: Object): any {
+    //let id = new ObjectId(filter);
+    let query = this.model.findById(filter);
+    query.exec( (err, item) => {
+      response.json(item);
+    });
+  }
+
+  // TO-DO: allow finding names includeing keywords
+  public retrieveRecipeByName(response: any, filter: Object): any { 
+    let query = this.model.find(filter);
+    query.exec( (err, item) => {
+      response.json(item);
+    });
+  }
+
+  // TO-DO: allow finding recipes with any combos of types
+  public retrieveRecipeByType(response: any, filter: Object): any { 
+
+    console.log(filter);
+
+    let query = this.model.find(filter);
+    query.exec( (err, item) => {
+      response.json(item);
     });
   }
   
