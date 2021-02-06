@@ -53,5 +53,12 @@ class MealplanModel {
     public createModel(): void {
         this.model = mongooseConnection.model<IMealplanModel>("Mealplans", this.schema);
     }
+
+    public retrieveAllMealplansByMemberId(response: any, filter: Object): any {
+        let query = this.model.find(filter);
+        query.exec((err, itemArray) => {
+          response.json(itemArray);
+        });
+    }
     
 }
