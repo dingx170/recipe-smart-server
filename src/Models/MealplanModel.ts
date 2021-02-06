@@ -7,6 +7,7 @@ import {FeatureType} from '../Enums/FeatureType'
 import {AllergyType} from '../Enums/AllergyType'
 import {RecipeTag} from '../Enums/RecipeTag'
 import { ObjectId } from "mongodb"
+import { IMealplanModel } from "../Interfaces/IMealplanModel"
 
 let mongooseConnection = DataAccess.mongooseConnection;
 
@@ -49,5 +50,8 @@ class MealplanModel {
         );
     }
 
+    public createModel(): void {
+        this.model = mongooseConnection.model<IMealplanModel>("Mealplans", this.schema);
+    }
     
 }
