@@ -60,5 +60,19 @@ class MealplanModel {
           response.json(itemArray);
         });
     }
+
+    public retrieveShoppinglistFromMealplan(response: any, filter: Object): any {
+      let query = this.model.findById(filter).select('shopping_list');
+      query.exec((err, item) => {
+        response.json(item);
+      })
+    }
+
+    public retrieveRecipelistFromMealplan(response: any, filter:Object): any {
+      let query = this.model.findById(filter).select('recipe_list');
+      query.exec((err, item) => {
+        response.json(item);
+      })
+    }
     
 }
