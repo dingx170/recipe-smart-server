@@ -1,12 +1,9 @@
 import  {Schema} from "mongoose"
 import {DataAccess} from '../DataAccess'
-import {IRecipeModel} from '../Interfaces/IRecipeModel'
 import {MealType} from '../Enums/MealType'
 import {CuisineType} from '../Enums/CuisineType'
 import {FeatureType} from '../Enums/FeatureType'
 import {AllergyType} from '../Enums/AllergyType'
-import {RecipeTag} from '../Enums/RecipeTag'
-import { ObjectId } from "mongodb"
 import { IMealplanModel } from "../Interfaces/IMealplanModel"
 
 let mongooseConnection = DataAccess.mongooseConnection;
@@ -53,7 +50,8 @@ class MealplanModel {
     public createModel(): void {
         this.model = mongooseConnection.model<IMealplanModel>("Mealplans", this.schema);
     }
-
+    
+    //TODO: ID data type need to be determined
     public retrieveAllMealplansByMemberId(response: any, filter: Object): any {
         let query = this.model.find(filter);
         query.exec((err, itemArray) => {
@@ -61,6 +59,7 @@ class MealplanModel {
         });
     }
 
+    // Get shopping list of a mealplan
     public retrieveShoppinglistFromMealplan(response: any, filter: Object): any {
       let query = this.model.findById(filter).select('shopping_list');
       query.exec((err, item) => {
@@ -68,11 +67,12 @@ class MealplanModel {
       })
     }
 
+    // Get recipe list of a mealplan
     public retrieveRecipelistFromMealplan(response: any, filter:Object): any {
       let query = this.model.findById(filter).select('recipe_list');
       query.exec((err, item) => {
         response.json(item);
       })
     }
-    
+
 }
