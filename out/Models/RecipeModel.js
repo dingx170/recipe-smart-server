@@ -56,9 +56,32 @@ class RecipeModel {
         this.model = mongooseConnection.model("Recipes", this.schema);
     }
     retrieveAllRecipes(response) {
-        var query = this.model.find({});
+        let query = this.model.find({});
         query.exec((err, itemArray) => {
             response.json(itemArray);
+        });
+    }
+    // TO-DO: change ObjectId to String for foreign key
+    retrieveRecipeByID(response, filter) {
+        //let id = new ObjectId(filter);
+        let query = this.model.findById(filter);
+        query.exec((err, item) => {
+            response.json(item);
+        });
+    }
+    // TO-DO: allow finding names includeing keywords
+    retrieveRecipeByName(response, filter) {
+        let query = this.model.find(filter);
+        query.exec((err, item) => {
+            response.json(item);
+        });
+    }
+    // TO-DO: allow finding recipes with any combos of types
+    retrieveRecipeByType(response, filter) {
+        console.log(filter);
+        let query = this.model.find(filter);
+        query.exec((err, item) => {
+            response.json(item);
         });
     }
 }

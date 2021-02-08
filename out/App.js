@@ -27,6 +27,10 @@ const express_1 = __importDefault(require("express"));
 const bodyParser = __importStar(require("body-parser"));
 const Recipes_1 = require("./Routes/Recipes");
 const MyRecipes_1 = require("./Routes/MyRecipes");
+//import { userRoute } from "./Routes/User";
+const UserModel_1 = require("./Models/UserModel");
+let userRoute = express_1.default.Router();
+let users = new UserModel_1.UserModel();
 class App {
     // run config methods
     constructor() {
@@ -43,7 +47,13 @@ class App {
     }
     // config API endpoints
     setupRoutes() {
-        // let router = express.Router();
+        let router = express_1.default.Router();
+        router.get("/users/:uId", (req, res) => {
+            let id = req.params.uId;
+            console.log('Query single list with uid: ' + id);
+            users.retrieveUserByID(res, id);
+            console.log("executed retrieve user by id");
+        });
         // // route handler for default home page
         // router.get("/home", (req : Request, res : Response) => {
         //     res.send("Hello from server! Hello world!")
@@ -57,6 +67,7 @@ class App {
         // this.expApp.use('/', express.static(__dirname+'/pages'));
         this.expApp.use("/recipes", Recipes_1.recipesRoute);
         this.expApp.use("/myrecipes", MyRecipes_1.myRecipesRoute);
+        //this.expApp.use("/users", userRoute);
     }
 }
 exports.App = App;
