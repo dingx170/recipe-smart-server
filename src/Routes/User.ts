@@ -6,7 +6,7 @@ let users = new UserModel();
 
 //retrive user from given userId
 
-userRoute.get("/id/:uId", (req : Request, res : Response) => {
+userRoute.get("/:uId", (req : Request, res : Response) => {
     let id = req.params.uId;
     console.log('Query single list with uid: ' + id);
     users.retrieveUserByID(res, id);
@@ -17,15 +17,15 @@ userRoute.get("/id/:uId", (req : Request, res : Response) => {
 
 
 // retrieve user from given email
-// userRoute.get("/", (req : Request, res : Response) => {
-//     let filter = req.query.body;
+userRoute.get("/", (req : Request, res : Response) => {
+    let filter = req.query.body;
 
-//     users.retrieveUser(res, {filter});
+    users.retrieveUser(res, {filter});
 
-//     console.log("executed retrieve user by condition");
+    console.log("executed retrieve user by condition");
 
     
-// });
+});
 
 
 // create a new user
