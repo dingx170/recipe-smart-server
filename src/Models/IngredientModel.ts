@@ -1,6 +1,6 @@
 import  {Schema} from "mongoose"
 import {DataAccess} from '../DataAccess'
-import {IRecipeModel} from '../Interfaces/IRecipeModel'
+import {IIngredientModel} from '../Interfaces/IIngredientModel'
 import {AllergyType} from '../Enums/AllergyType'
 import { ObjectId } from "mongodb"
 
