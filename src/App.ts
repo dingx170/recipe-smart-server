@@ -2,12 +2,9 @@ import express, {Application, Request, Response} from "express";
 import * as bodyParser from 'body-parser';
 import {recipesRoute} from './Routes/Recipes';
 import {myRecipesRoute} from './Routes/MyRecipes';
-//import { userRoute } from "./Routes/User";
+import {userRoute} from "./Routes/User";
 
-import {UserModel} from './Models/UserModel'
 
-let userRoute = express.Router();
-let users = new UserModel();
 
 class App {
 

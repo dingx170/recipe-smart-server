@@ -45,9 +45,9 @@ class UserModel {
     this.model = mongooseConnection.model<IUserModel>("User", this.schema);
   }
 
-  public retrieveUserByID(res: any, myid: ObjectID): any {
+  public retrieveUserByID(res: any, myid: any): any {
 
-    let query = this.model.findOne({id:myid});
+    let query = this.model.findOne({user_id:myid});
     query.exec( (err, item) => {
         if(err){
           console.log(err);
@@ -97,7 +97,7 @@ class UserModel {
 
   //update user
   public updateUser(id: any, new_specs: any, res: any): any{
-    this.model.updateOne({_id: id}, new_specs, (err) =>{
+    this.model.updateOne({user_id: id}, new_specs, (err) =>{
         if(err){
             console.log(err);
             console.log('update behavior failed.')
