@@ -32,16 +32,6 @@ class App {
     // config API endpoints
     private setupRoutes(): void {
         
-        let router = express.Router();
-
-        router.get("/users/:uId", (req : Request, res : Response) => {
-            let id = req.params.uId;
-            console.log('Query single list with uid: ' + id);
-            users.retrieveUserByID(res, id);
-        
-            console.log("executed retrieve user by id")
-        
-        });
 
         // // route handler for default home page
         // router.get("/home", (req : Request, res : Response) => {
@@ -60,7 +50,7 @@ class App {
 
         this.expApp.use("/recipes", recipesRoute);
         this.expApp.use("/myrecipes", myRecipesRoute);
-        //this.expApp.use("/users", userRoute);
+        this.expApp.use("/users", userRoute);
     }
 }
 

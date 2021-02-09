@@ -2,7 +2,7 @@ import  {Schema} from "mongoose"
 import {DataAccess} from '../DataAccess'
 import {IUserModel} from '../Interfaces/IUserModel'
 import {AllergyType} from '../Enums/AllergyType'
-import { ObjectId } from "mongodb"
+import { ObjectID, ObjectId } from "mongodb"
 import { UserTag } from "../Enums/UserTag"
 const assert = require('assert').strict;
 
@@ -45,21 +45,16 @@ class UserModel {
     this.model = mongooseConnection.model<IUserModel>("User", this.schema);
   }
 
-  public retrieveUserByID(res: any, id: any): any {
+  public retrieveUserByID(res: any, myid: ObjectID): any {
 
-    let query = this.model.findById(id).then((result: { toJSON: () => any; _id: any; __v: any }) => {
-        result = result.toJSON();
-        delete result._id;
-        delete result.__v;
-        res.status(200).send(result);
-    });
-    // query.exec( (err, item) => {
-    //   if(err){
-    //     console.log(err);
-    //     return;
-    //   }
-    //   response.json(item);
-    // });
+    let query = this.model.findOne({id:myid});
+    query.exec( (err, item) => {
+        if(err){
+          console.log(err);
+          return;
+        }
+        res.json(item);
+      });
   }
 
   // finding user by email and username combination
@@ -79,25 +74,25 @@ class UserModel {
   public createUser(user_specs: any, res: any): any{
 
     
-    // user_specs.user_id = UserModel.idGenerator;
+    user_specs.user_id = UserModel.idGenerator;
     
-    // this.model.create([user_specs], (err)=>{
-    //   if(err){
-    //     console.log('object creation failed.');
-    //   }
+    this.model.create([user_specs], (err)=>{
+      if(err){
+        console.log('object creation failed.');
+      }
       
-    // });
-    // //res.send(UserModel.idGenerator.toString());
-    // UserModel.idGenerator++;
+    });
+    res.send(UserModel.idGenerator.toString());
+    UserModel.idGenerator++;
 
-    const newUser = new this.model(user_specs);
-    newUser.save((err, ret) =>{
-        if(err){
-            console.log(err);
-            return;
-        }
-        res.send(ret.id);
-    })
+    // const newUser = new this.model(user_specs);
+    // newUser.save((err, ret) =>{
+    //     if(err){
+    //         console.log(err);
+    //         return;
+    //     }
+    //     res.send(ret.id);
+    // })
   }
 
   //update user
