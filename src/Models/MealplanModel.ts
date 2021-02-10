@@ -19,6 +19,11 @@ class MealplanModel {
     public createSchema(): void {
         this.schema = new Schema(
             {
+                mealplan_id: {
+                  type: Number,
+                  unique: true,
+                  required: true
+                },
                 member_id: Schema.Types.ObjectId,
                 date: Date,
                 budget: Number,
@@ -50,6 +55,15 @@ class MealplanModel {
     public createModel(): void {
         this.model = mongooseConnection.model<IMealplanModel>("Mealplans", this.schema);
     }
+
+    public addNewMealPlan(response: any, body: any) {
+        this.model(body).save((err, mealplan)=>{
+          if(err) {
+            response.send(err);
+          }
+          response.json(mealplan);
+        })
+    }
     
     //TODO: ID data type need to be determined
     public retrieveAllMealplansByMemberId(response: any, filter: Object): any {
@@ -73,6 +87,17 @@ class MealplanModel {
       query.exec((err, item) => {
         response.json(item);
       })
+    }
+
+    public updateShoppinglist(response: any, body: any, filter: Object) {
+      this.model.findOneAndUpdate(filter, body, {new: true}, (err, mealplan) => {
+        if(err){
+          response.send(err);
+        }
+        console.log("Update mealplan" + mealplan.mealplan_id)
+        response.json(mealplan);
+      });
+      
     }
 
 }
