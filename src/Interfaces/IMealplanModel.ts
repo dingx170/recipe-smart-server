@@ -7,13 +7,13 @@ import {RecipeTag} from '../Enums/RecipeTag'
 
 
 interface IMealplanModel extends Document {
-    mealplan_id:number,
+    mealplan_id:Number,
     member_id: Number,
     date: Date;
     budget: Number;
     group: Number;
-    recipe_list: [ObjectId];
-    shopping_list: [ObjectId];
+    recipe_list: [Number];
+    shopping_list: [Number];
     meal_type: MealType;
     cuisine_type: CuisineType;
     feature_type: FeatureType;

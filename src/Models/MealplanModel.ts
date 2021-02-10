@@ -29,8 +29,8 @@ class MealplanModel {
                 date: Date,
                 budget: Number,
                 group: Number,
-                recipe_list: [Schema.Types.ObjectId],
-                shopping_list: [Schema.Types.ObjectId],
+                recipe_list: [Number],
+                shopping_list: [Number],
                 meal_type: {
                     type: String,
                     enum: MealType,
@@ -62,7 +62,7 @@ class MealplanModel {
           if(err) {
             response.send(err);
           }
-          response.json(mealplan);
+          response.json(mealplan.mealplan_id);
         })
     }
     
@@ -77,30 +77,36 @@ class MealplanModel {
 
     // Get shopping list of a mealplan
     public retrieveShoppinglistFromMealplan(response: any, filter: Object): any {
-      let query = this.model.findById(filter).select('shopping_list');
+      let query = this.model.findOne(filter).select('shopping_list');
+      console.log("query: " +query);
       query.exec((err, item) => {
+        console.log(item);
         response.json(item);
       })
     }
 
     // Get recipe list of a mealplan
     public retrieveRecipelistFromMealplan(response: any, filter:Object): any {
-      let query = this.model.findById(filter).select('recipe_list');
+      let query = this.model.findOne(filter).select('recipe_list');
+      console.log(query);
       query.exec((err, item) => {
+        console.log(item);
         response.json(item);
       })
     }
 
-    public updateShoppinglist(response: any, body: any, filter: Object) {
+    public updateShoppinglist(response: any, filter: Object, body: any) {
       this.model.findOneAndUpdate(filter, body, {new: true}, (err, mealplan) => {
         if(err){
           response.send(err);
         }
         console.log("Update mealplan" + mealplan.mealplan_id)
-        response.json(mealplan);
+        response.json(mealplan.shopping_list);
       });
       
     }
+
+    
 
 }
 export{MealplanModel} 
