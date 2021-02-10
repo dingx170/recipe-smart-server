@@ -3,7 +3,8 @@ import * as bodyParser from 'body-parser';
 import {recipesRoute} from './Routes/Recipes';
 import {myRecipesRoute} from './Routes/MyRecipes';
 import {userRoute} from "./Routes/User";
-
+import {Mealplan} from "./Routes/Mealplan"
+import { RecipeModel } from "./Models/RecipeModel";
 
 
 class App {
@@ -48,6 +49,10 @@ class App {
         this.expApp.use("/recipes", recipesRoute);
         this.expApp.use("/myrecipes", myRecipesRoute);
         this.expApp.use("/users", userRoute);
+        let router =  express.Router();
+        var mealplan = new Mealplan();
+        mealplan.registerRoutes(router);
+        this.expApp.use('/', router);
     }
 }
 
