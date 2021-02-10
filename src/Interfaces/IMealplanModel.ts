@@ -7,7 +7,8 @@ import {RecipeTag} from '../Enums/RecipeTag'
 
 
 interface IMealplanModel extends Document {
-    member_id: ObjectId,
+    mealplan_id:number,
+    member_id: Number,
     date: Date;
     budget: Number;
     group: Number;

@@ -13,7 +13,8 @@ class MealplanModel {
     public model: any;
 
     public constructor() {
-        
+      this.createSchema();  
+      this.createModel();
     }
 
     public createSchema(): void {
@@ -24,7 +25,7 @@ class MealplanModel {
                   unique: true,
                   required: true
                 },
-                member_id: Schema.Types.ObjectId,
+                member_id: Number,
                 date: Date,
                 budget: Number,
                 group: Number,
@@ -67,10 +68,11 @@ class MealplanModel {
     
     //TODO: ID data type need to be determined
     public retrieveAllMealplansByMemberId(response: any, filter: Object): any {
-        let query = this.model.find(filter);
-        query.exec((err, itemArray) => {
-          response.json(itemArray);
-        });
+      console.log(filter)  
+      let query = this.model.find(filter);
+      query.exec((err, itemArray) => {
+        response.json(itemArray);
+      });
     }
 
     // Get shopping list of a mealplan
@@ -101,3 +103,4 @@ class MealplanModel {
     }
 
 }
+export{MealplanModel} 
