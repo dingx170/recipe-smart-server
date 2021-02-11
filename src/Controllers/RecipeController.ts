@@ -46,6 +46,14 @@ class RecipeController {
 
         RecipeModel.createRecipeByMemberID(res, new_recipe);
     }
+
+    public static putRecipe(req: Request, res: Response) {
+        
+        let new_recipe = req.body;
+        let recipe_id = new_recipe.recipe_id;
+
+        RecipeModel.updateRecipe(res, {recipe_id : recipe_id}, new_recipe);
+    }
 }
 
 export {RecipeController}

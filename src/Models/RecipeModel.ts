@@ -104,14 +104,28 @@ class RecipeModel {
     // });
     // new_recipe.recipe_id = new_recipe_id;
 
-    this.model(new_recipe).save((err, new_recipe)=>{
-      if(err) {
+    this.model(new_recipe).save((err, new_recipe) => {
+      if (err) {
         response.send(err);
         return;
       }
       response.json(new_recipe);
     });
   }
+
+  public static updateRecipe(response: any, filter: Object, new_recipe: any): any { 
+
+    this.model.findOneAndUpdate(filter, new_recipe, {useFindAndModify: false}, (err, recipe) => {
+      if (err){
+        response.send(err);
+        return;
+      }
+      response.json(recipe);
+    });
+  }
+
+
+  // TO-DO
 
   // TO-DO: allow finding names includeing keywords
   public static retrieveRecipeByName(response: any, filter: Object): any { 

@@ -95,6 +95,16 @@ class RecipeModel {
             response.json(new_recipe);
         });
     }
+    static updateRecipe(response, filter, new_recipe) {
+        this.model.findOneAndUpdate(filter, new_recipe, { useFindAndModify: false }, (err, recipe) => {
+            if (err) {
+                response.send(err);
+                return;
+            }
+            response.json(recipe);
+        });
+    }
+    // TO-DO
     // TO-DO: allow finding names includeing keywords
     static retrieveRecipeByName(response, filter) {
         let query = this.model.find(filter);

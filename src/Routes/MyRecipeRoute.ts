@@ -8,6 +8,8 @@ class MyRecipeRoute {
         recipeRoute.get("/myrecipes/:member_id", RecipeController.getRecipesByMemberID);
         
         recipeRoute.post("/myrecipes/:member_id", RecipeController.postRecipeByMemberID);
+
+        recipeRoute.put("/myrecipes/:member_id/:recipe_id", RecipeController.putRecipe);
     }
 }
 
