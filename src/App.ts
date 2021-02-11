@@ -5,6 +5,7 @@ import {myRecipesRoute} from './Routes/MyRecipes';
 import {userRoute} from "./Routes/User";
 import {Mealplan} from "./Routes/Mealplan"
 import { RecipeModel } from "./Models/RecipeModel";
+import { MyRecipeRoute } from "./Routes/MyRecipeRoute";
 
 
 class App {
@@ -46,8 +47,6 @@ class App {
         // this.expApp.use('/images', express.static(__dirname+'/img'));
         // this.expApp.use('/', express.static(__dirname+'/pages'));
 
-        // this.expApp.use("/recipes", recipesRoute);
-        this.expApp.use("/myrecipes", myRecipesRoute);
         this.expApp.use("/users", userRoute);
 
         let router =  express.Router();
@@ -56,6 +55,7 @@ class App {
 
         // 1. register routes
         RecipeRoute.registerRoutes(router);
+        MyRecipeRoute.registerRoutes(router);
 
         this.expApp.use('/', router);
     }

@@ -68,12 +68,31 @@ class RecipeModel {
             response.json(itemArray);
         });
     }
-    // TO-DO: change ObjectId to String for foreign key
     static retrieveRecipeByID(response, filter) {
-        //let id = new ObjectId(filter);
-        let query = this.model.findById(filter);
+        let query = this.model.findOne(filter);
         query.exec((err, item) => {
             response.json(item);
+        });
+    }
+    // For My Recipes
+    static retrieveRecipesByMemberID(response, filter) {
+        let query = this.model.find(filter);
+        query.exec((err, item) => {
+            response.json(item);
+        });
+    }
+    static createRecipeByMemberID(response, new_recipe) {
+        // let new_recipe_id: number = 0; 
+        // this.model.countDocuments({}, function(err, c) {
+        //   console.log('Count is ' + c);
+        // });
+        // new_recipe.recipe_id = new_recipe_id;
+        this.model(new_recipe).save((err, new_recipe) => {
+            if (err) {
+                response.send(err);
+                return;
+            }
+            response.json(new_recipe);
         });
     }
     // TO-DO: allow finding names includeing keywords

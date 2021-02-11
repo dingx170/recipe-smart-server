@@ -82,9 +82,34 @@ class RecipeModel {
   }
 
   public static retrieveRecipeByID(response: any, filter: Object): any {
-    let query = this.model.findById(filter);
+    let query = this.model.findOne(filter);
     query.exec( (err, item) => {
       response.json(item);
+    });
+  }
+
+  // For My Recipes
+  public static retrieveRecipesByMemberID(response: any, filter: Object): any { 
+    let query = this.model.find(filter);
+    query.exec( (err, item) => {
+      response.json(item);
+    });
+  }
+
+  public static createRecipeByMemberID(response: any, new_recipe: any): any { 
+
+    // let new_recipe_id: number = 0; 
+    // this.model.countDocuments({}, function(err, c) {
+    //   console.log('Count is ' + c);
+    // });
+    // new_recipe.recipe_id = new_recipe_id;
+
+    this.model(new_recipe).save((err, new_recipe)=>{
+      if(err) {
+        response.send(err);
+        return;
+      }
+      response.json(new_recipe);
     });
   }
 

@@ -20,11 +20,6 @@ class RecipeController {
         let cuisine_type = req.query.cuisine_type;
         let feature_type = req.query.feature_type;
 
-        console.log(name);
-        console.log(meal_type);
-        console.log(cuisine_type);
-        console.log(feature_type);
-
         if (name) {
             RecipeModel.retrieveRecipeByName(res, {name: name});
             console.log("View recipes by name");
@@ -36,6 +31,20 @@ class RecipeController {
             console.log("View all recipes");
         }
 
+    }
+
+    public static getRecipesByMemberID(req: Request, res: Response) {
+
+        let member_id = req.params.member_id;
+
+        RecipeModel.retrieveRecipesByMemberID(res, {member_id: member_id});
+    }
+
+    public static postRecipeByMemberID(req: Request, res: Response) {
+        
+        let new_recipe = req.body;
+
+        RecipeModel.createRecipeByMemberID(res, new_recipe);
     }
 }
 
