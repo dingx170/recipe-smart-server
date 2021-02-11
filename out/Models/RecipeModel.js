@@ -12,16 +12,20 @@ let mongooseConnection = DataAccess_1.DataAccess.mongooseConnection;
 // let mongooseObg = DataAccess.mongooseInstance;
 class RecipeModel {
     constructor() {
-        this.createSchema();
-        this.createModel();
+        RecipeModel.createSchema();
+        RecipeModel.createModel();
     }
-    createSchema() {
+    static createSchema() {
+        if (this.schema) {
+            return;
+        }
         this.schema = new mongoose_1.Schema({
+            recipe_id: Number,
             name: String,
-            member_id: mongoose_1.Schema.Types.ObjectId,
+            member_id: Number,
             date: Date,
             steps: String,
-            ingredients: [[mongoose_1.Schema.Types.ObjectId, Number]],
+            ingredients: [[Number, Number]],
             group: Number,
             cost: Number,
             photo: Buffer,
@@ -52,17 +56,20 @@ class RecipeModel {
             ]
         }, { collection: 'recipes' });
     }
-    createModel() {
+    static createModel() {
+        if (this.model) {
+            return;
+        }
         this.model = mongooseConnection.model("Recipes", this.schema);
     }
-    retrieveAllRecipes(response) {
+    static retrieveAllRecipes(response) {
         let query = this.model.find({});
         query.exec((err, itemArray) => {
             response.json(itemArray);
         });
     }
     // TO-DO: change ObjectId to String for foreign key
-    retrieveRecipeByID(response, filter) {
+    static retrieveRecipeByID(response, filter) {
         //let id = new ObjectId(filter);
         let query = this.model.findById(filter);
         query.exec((err, item) => {
@@ -70,14 +77,14 @@ class RecipeModel {
         });
     }
     // TO-DO: allow finding names includeing keywords
-    retrieveRecipeByName(response, filter) {
+    static retrieveRecipeByName(response, filter) {
         let query = this.model.find(filter);
         query.exec((err, item) => {
             response.json(item);
         });
     }
     // TO-DO: allow finding recipes with any combos of types
-    retrieveRecipeByType(response, filter) {
+    static retrieveRecipeByType(response, filter) {
         console.log(filter);
         let query = this.model.find(filter);
         query.exec((err, item) => {
@@ -86,3 +93,5 @@ class RecipeModel {
     }
 }
 exports.RecipeModel = RecipeModel;
+RecipeModel.createSchema();
+RecipeModel.createModel();

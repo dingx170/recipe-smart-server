@@ -25,9 +25,10 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.App = void 0;
 const express_1 = __importDefault(require("express"));
 const bodyParser = __importStar(require("body-parser"));
-const Recipes_1 = require("./Routes/Recipes");
+const RecipeRoute_1 = require("./Routes/RecipeRoute");
 const MyRecipes_1 = require("./Routes/MyRecipes");
 const User_1 = require("./Routes/User");
+const Mealplan_1 = require("./Routes/Mealplan");
 class App {
     // run config methods
     constructor() {
@@ -55,9 +56,15 @@ class App {
         // TO-USE-LATER
         // this.expApp.use('/images', express.static(__dirname+'/img'));
         // this.expApp.use('/', express.static(__dirname+'/pages'));
-        this.expApp.use("/recipes", Recipes_1.recipesRoute);
+        // this.expApp.use("/recipes", recipesRoute);
         this.expApp.use("/myrecipes", MyRecipes_1.myRecipesRoute);
         this.expApp.use("/users", User_1.userRoute);
+        let router = express_1.default.Router();
+        var mealplan = new Mealplan_1.Mealplan();
+        mealplan.registerRoutes(router);
+        // 1. register routes
+        RecipeRoute_1.RecipeRoute.registerRoutes(router);
+        this.expApp.use('/', router);
     }
 }
 exports.App = App;

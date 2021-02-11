@@ -1,6 +1,6 @@
 import express, {Application, Request, Response} from "express";
 import * as bodyParser from 'body-parser';
-import {recipesRoute} from './Routes/Recipes';
+import {RecipeRoute} from './Routes/RecipeRoute';
 import {myRecipesRoute} from './Routes/MyRecipes';
 import {userRoute} from "./Routes/User";
 import {Mealplan} from "./Routes/Mealplan"
@@ -46,12 +46,17 @@ class App {
         // this.expApp.use('/images', express.static(__dirname+'/img'));
         // this.expApp.use('/', express.static(__dirname+'/pages'));
 
-        this.expApp.use("/recipes", recipesRoute);
+        // this.expApp.use("/recipes", recipesRoute);
         this.expApp.use("/myrecipes", myRecipesRoute);
         this.expApp.use("/users", userRoute);
+
         let router =  express.Router();
         var mealplan = new Mealplan();
         mealplan.registerRoutes(router);
+
+        // 1. register routes
+        RecipeRoute.registerRoutes(router);
+
         this.expApp.use('/', router);
     }
 }
