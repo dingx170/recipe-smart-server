@@ -81,9 +81,7 @@ class RecipeModel {
     });
   }
 
-  // TO-DO: change ObjectId to String for foreign key
   public static retrieveRecipeByID(response: any, filter: Object): any {
-    //let id = new ObjectId(filter);
     let query = this.model.findById(filter);
     query.exec( (err, item) => {
       response.json(item);
