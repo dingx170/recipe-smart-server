@@ -54,6 +54,13 @@ class RecipeController {
 
         RecipeModel.updateRecipe(res, {recipe_id : recipe_id}, new_recipe);
     }
+
+    public static deleteRecipe(req: Request, res: Response) {
+
+        let recipe_id = req.params.recipe_id;
+
+        RecipeModel.removeRecipe(res, {recipe_id : recipe_id});
+    }
 }
 
 export {RecipeController}

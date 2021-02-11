@@ -104,6 +104,15 @@ class RecipeModel {
             response.json(recipe);
         });
     }
+    static removeRecipe(response, filter) {
+        this.model.findOneAndDelete(filter, { useFindAndModify: false }, (err, recipe) => {
+            if (err) {
+                response.send(err);
+                return;
+            }
+            response.json(recipe);
+        });
+    }
     // TO-DO
     // TO-DO: allow finding names includeing keywords
     static retrieveRecipeByName(response, filter) {

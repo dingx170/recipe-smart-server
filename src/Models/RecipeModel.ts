@@ -124,6 +124,17 @@ class RecipeModel {
     });
   }
 
+  public static removeRecipe(response: any, filter: Object): any { 
+
+    this.model.findOneAndDelete(filter, {useFindAndModify: false}, (err, recipe) => {
+      if (err){
+        response.send(err);
+        return;
+      }
+      response.json(recipe);
+    });
+  }
+
 
   // TO-DO
 

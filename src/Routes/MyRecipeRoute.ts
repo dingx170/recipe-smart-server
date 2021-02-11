@@ -10,6 +10,8 @@ class MyRecipeRoute {
         recipeRoute.post("/myrecipes/:member_id", RecipeController.postRecipeByMemberID);
 
         recipeRoute.put("/myrecipes/:member_id/:recipe_id", RecipeController.putRecipe);
+
+        recipeRoute.delete("/myrecipes/:member_id/:recipe_id", RecipeController.deleteRecipe);
     }
 }
 
