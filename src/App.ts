@@ -1,7 +1,7 @@
 import express, {Application, Request, Response} from "express";
 import * as bodyParser from 'body-parser';
 import {RecipeRoute} from './Routes/RecipeRoute';
-import {myRecipesRoute} from './Routes/MyRecipes';
+// import {myRecipesRoute} from './Routes/MyRecipes';
 import {userRoute} from "./Routes/User";
 import {Mealplan} from "./Routes/Mealplan"
 import { RecipeModel } from "./Models/RecipeModel";
