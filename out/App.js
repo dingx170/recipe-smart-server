@@ -30,6 +30,7 @@ const RecipeRoute_1 = require("./Routes/RecipeRoute");
 const User_1 = require("./Routes/User");
 const Mealplan_1 = require("./Routes/Mealplan");
 const MyRecipeRoute_1 = require("./Routes/MyRecipeRoute");
+const TempPageRoute_1 = require("./Routes/TempPageRoute");
 class App {
     // run config methods
     constructor() {
@@ -64,6 +65,10 @@ class App {
         // 1. register routes
         RecipeRoute_1.RecipeRoute.registerRoutes(router);
         MyRecipeRoute_1.MyRecipeRoute.registerRoutes(router);
+        // EJS
+        this.expApp.set('view engine', 'ejs');
+        this.expApp.use(express_1.default.static(__dirname + './src'));
+        TempPageRoute_1.TempPageRoute.registerRoutes(router);
         this.expApp.use('/', router);
     }
 }

@@ -7,6 +7,10 @@ import {Mealplan} from "./Routes/Mealplan"
 import { RecipeModel } from "./Models/RecipeModel";
 import { MyRecipeRoute } from "./Routes/MyRecipeRoute";
 
+import { TempPageRoute } from "./Routes/TempPageRoute";
+import ejs from "ejs";
+import multer from "multer";
+import path from "path";
 
 class App {
 
@@ -56,6 +60,14 @@ class App {
         // 1. register routes
         RecipeRoute.registerRoutes(router);
         MyRecipeRoute.registerRoutes(router);
+
+        // EJS
+        this.expApp.set('view engine', 'ejs');
+
+        this.expApp.use(express.static(__dirname + './src'));
+
+        TempPageRoute.registerRoutes(router);
+
 
         this.expApp.use('/', router);
     }
