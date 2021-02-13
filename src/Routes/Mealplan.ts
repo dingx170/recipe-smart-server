@@ -2,6 +2,7 @@ import express, {Request, Response} from "express";
 import * as url from 'url';
 
 import {MealplanModel} from '../Models/MealplanModel';
+import {MealplanController} from '../Controllers/MealPlanController';
 class Mealplan {
     public Mealplan:MealplanModel
     //public mealplanRouter:express.Router()
@@ -58,7 +59,9 @@ class Mealplan {
             this.Mealplan.updateShoppinglist(res, {mealplan_id: mealplanId, member_id: memberId}, shoppinglist);
             console.log("View Member " + memberId + "'s mealplan " + mealplanId + "'s shoppinglist");
         });
-        
+        router.post('/test',(req,res)=>{
+            MealplanController.postMealPlanCustomized(req, res, this.Mealplan);
+        });
     }
 }
 export{Mealplan}
