@@ -2,7 +2,7 @@ import express, {Application, Request, Response} from "express";
 import * as bodyParser from 'body-parser';
 import {RecipeRoute} from './Routes/RecipeRoute';
 // import {myRecipesRoute} from './Routes/MyRecipes';
-import {userRoute} from "./Routes/User";
+import {UserRoute} from "./Routes/User";
 import {Mealplan} from "./Routes/Mealplan"
 import { RecipeModel } from "./Models/RecipeModel";
 import { MyRecipeRoute } from "./Routes/MyRecipeRoute";
@@ -50,8 +50,7 @@ class App {
         // TO-USE-LATER
         // this.expApp.use('/images', express.static(__dirname+'/img'));
         // this.expApp.use('/', express.static(__dirname+'/pages'));
-
-        this.expApp.use("/users", userRoute);
+        // this.expApp.use("/users", UserRoute);
 
         let router =  express.Router();
         var mealplan = new Mealplan();
@@ -60,6 +59,7 @@ class App {
         // 1. register routes
         RecipeRoute.registerRoutes(router);
         MyRecipeRoute.registerRoutes(router);
+        UserRoute.registerRoutes(router);
 
         // EJS
         this.expApp.set('view engine', 'ejs');

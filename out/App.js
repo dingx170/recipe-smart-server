@@ -58,13 +58,14 @@ class App {
         // TO-USE-LATER
         // this.expApp.use('/images', express.static(__dirname+'/img'));
         // this.expApp.use('/', express.static(__dirname+'/pages'));
-        this.expApp.use("/users", User_1.userRoute);
+        // this.expApp.use("/users", UserRoute);
         let router = express_1.default.Router();
         var mealplan = new Mealplan_1.Mealplan();
         mealplan.registerRoutes(router);
         // 1. register routes
         RecipeRoute_1.RecipeRoute.registerRoutes(router);
         MyRecipeRoute_1.MyRecipeRoute.registerRoutes(router);
+        User_1.UserRoute.registerRoutes(router);
         // EJS
         this.expApp.set('view engine', 'ejs');
         this.expApp.use(express_1.default.static(__dirname + './src'));

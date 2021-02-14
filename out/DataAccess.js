@@ -17,6 +17,9 @@ class DataAccess {
         this.mongooseConnection.on("open", () => {
             console.log("Connected to MongoDB");
         });
+        mongoose_1.default.set('useCreateIndex', true);
+        mongoose_1.default.set('useNewUrlParser', true);
+        mongoose_1.default.set('useUnifiedTopology', true);
         this.mongooseInstance = mongoose_1.default.connect(this.DB_CONNECTION_STRING);
         // mongoose.connect('mongodb://localhost:27017/test', {useNewUrlParser: true}, function(err) {
         //     if (err) {

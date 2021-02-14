@@ -4,19 +4,27 @@ import {IUserModel} from '../Interfaces/IUserModel'
 import {AllergyType} from '../Enums/AllergyType'
 import { ObjectID, ObjectId } from "mongodb"
 import { UserTag } from "../Enums/UserTag"
-const assert = require('assert').strict;
+
 
 let mongooseConnection = DataAccess.mongooseConnection;
-// let mongooseObg = DataAccess.mongooseInstance;
+
 
 class UserModel {
-  public schema: any;
-  public model: any;
-  public static idGenerator:number = 1001;
+  private schema: any;
+  private model: any;
+  private static instance: UserModel;
+  private static idGenerator:number = 1001;
+ 
 
-  public constructor() {
+  private constructor() {
     this.createSchema();
     this.createModel();
+  }
+
+  public static getInstance():any{
+    if(this.instance == null){
+      return new UserModel();
+    }return this.instance;
   }
 
   public createSchema(): void {
