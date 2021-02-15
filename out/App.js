@@ -28,7 +28,7 @@ const bodyParser = __importStar(require("body-parser"));
 const RecipeRoute_1 = require("./Routes/RecipeRoute");
 // import {myRecipesRoute} from './Routes/MyRecipes';
 const User_1 = require("./Routes/User");
-const Mealplan_1 = require("./Routes/Mealplan");
+const MealplanRoute_1 = require("./Routes/MealplanRoute");
 const MyRecipeRoute_1 = require("./Routes/MyRecipeRoute");
 const TempPageRoute_1 = require("./Routes/TempPageRoute");
 class App {
@@ -60,8 +60,8 @@ class App {
         // this.expApp.use('/', express.static(__dirname+'/pages'));
         // this.expApp.use("/users", UserRoute);
         let router = express_1.default.Router();
-        var mealplan = new Mealplan_1.Mealplan();
-        mealplan.registerRoutes(router);
+        //var mealplan = new Mealplan();
+        //mealplan.registerRoutes(router);
         // 1. register routes
         RecipeRoute_1.RecipeRoute.registerRoutes(router);
         MyRecipeRoute_1.MyRecipeRoute.registerRoutes(router);
@@ -70,6 +70,7 @@ class App {
         this.expApp.set('view engine', 'ejs');
         this.expApp.use(express_1.default.static(__dirname + './src'));
         TempPageRoute_1.TempPageRoute.registerRoutes(router);
+        MealplanRoute_1.MealplanRoute.registerMealplanRoutes(router);
         this.expApp.use('/', router);
     }
 }

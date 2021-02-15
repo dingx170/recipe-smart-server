@@ -16,20 +16,41 @@ class RecipeController {
     public static getRecipesByFilters(req: Request, res: Response) {
 
         let name = req.query.name;
-        let meal_type = req.query.meal_type;
-        let cuisine_type = req.query.cuisine_type;
-        let feature_type = req.query.feature_type;
+        let cost = req.query.cost;
+        let meal_types = req.query.meal_types;
+        let cuisine_types = req.query.cuisine_types;
+        let feature_types = req.query.feature_types;
 
+        var filter = {};
         if (name) {
-            RecipeModel.retrieveRecipeByName(res, {name: name});
-            console.log("View recipes by name");
-        } else if (meal_type || cuisine_type || feature_type) {
-            RecipeModel.retrieveRecipeByType(res, {meal_type: meal_type, cuisine_type: cuisine_type, feature_type: feature_type});
-            console.log("View recipes by type");
-        } else {
-            RecipeModel.retrieveAllRecipes(res);
-            console.log("View all recipes");
+            let regex = new RegExp(name, 'i');
+            filter["name"] = {$regex: regex};
+        } 
+        if (cost) {
+            filter["cost"] = {$lt: cost};
         }
+        if (meal_types) { 
+            filter["meal_type"] = {$in: meal_types}; // test with recipes?meal_types[]=Lunch&meal_types[]=Dinner
+        }
+        if (cuisine_types) {
+            filter["cuisine_type"] = {$in: cuisine_types}; 
+        }
+        if (feature_types) {
+            filter["feature_type"] = {$in: feature_types}; 
+        }
+
+        RecipeModel.retrieveRecipeByType(res, filter);
+        console.log("View recipes by type");
+
+        return;
+        
+        // if (meal_type || cuisine_type || feature_type) {
+        //     RecipeModel.retrieveRecipeByType(res, {meal_type: meal_type, cuisine_type: cuisine_type, feature_type: feature_type});
+        //     console.log("View recipes by type");
+        // } else {
+        //     RecipeModel.retrieveAllRecipes(res);
+        //     console.log("View all recipes");
+        // }
 
     }
 
