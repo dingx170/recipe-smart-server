@@ -3,7 +3,7 @@ import * as bodyParser from 'body-parser';
 import {RecipeRoute} from './Routes/RecipeRoute';
 // import {myRecipesRoute} from './Routes/MyRecipes';
 import {UserRoute} from "./Routes/User";
-import {Mealplan} from "./Routes/Mealplan"
+import {MealplanRoute} from "./Routes/MealplanRoute"
 import { RecipeModel } from "./Models/RecipeModel";
 import { MyRecipeRoute } from "./Routes/MyRecipeRoute";
 
@@ -53,8 +53,8 @@ class App {
         // this.expApp.use("/users", UserRoute);
 
         let router =  express.Router();
-        var mealplan = new Mealplan();
-        mealplan.registerRoutes(router);
+        //var mealplan = new Mealplan();
+        //mealplan.registerRoutes(router);
 
         // 1. register routes
         RecipeRoute.registerRoutes(router);
@@ -67,6 +67,8 @@ class App {
         this.expApp.use(express.static(__dirname + './src'));
 
         TempPageRoute.registerRoutes(router);
+
+        MealplanRoute.registerMealplanRoutes(router);
 
 
         this.expApp.use('/', router);
