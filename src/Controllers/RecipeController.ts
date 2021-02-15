@@ -14,12 +14,12 @@ class RecipeController {
     }
 
     public static getRecipesByFilters(req: Request, res: Response) {
-
         let name = req.query.name;
         let cost = req.query.cost;
         let meal_types = req.query.meal_types;
         let cuisine_types = req.query.cuisine_types;
         let feature_types = req.query.feature_types;
+        let restrictions = req.query.restrictions;
 
         var filter = {};
         if (name) {
@@ -38,20 +38,12 @@ class RecipeController {
         if (feature_types) {
             filter["feature_type"] = {$in: feature_types}; 
         }
+        if (restrictions) {
+            filter["restrictions"] = {$nin: restrictions}; 
+        }
 
         RecipeModel.retrieveRecipeByType(res, filter);
         console.log("View recipes by type");
-
-        return;
-        
-        // if (meal_type || cuisine_type || feature_type) {
-        //     RecipeModel.retrieveRecipeByType(res, {meal_type: meal_type, cuisine_type: cuisine_type, feature_type: feature_type});
-        //     console.log("View recipes by type");
-        // } else {
-        //     RecipeModel.retrieveAllRecipes(res);
-        //     console.log("View all recipes");
-        // }
-
     }
 
     public static getRecipesByMemberID(req: Request, res: Response) {
