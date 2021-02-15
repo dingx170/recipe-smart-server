@@ -67,7 +67,6 @@ class RecipeModel {
   }
 
   public static createModel(): void {
-
     if (this.model) {
       return;
     }
@@ -75,12 +74,7 @@ class RecipeModel {
     this.model = mongooseConnection.model<IRecipeModel>("Recipes", this.schema);
   }
 
-  public static retrieveAllRecipes(response: any): any {
-    let query = this.model.find({});
-    query.exec( (err, itemArray) => {
-      response.json(itemArray);
-    });
-  }
+  /* General methods */
 
   public static retrieveRecipeByID(response: any, filter: Object): any {
     let query = this.model.findOne(filter);
@@ -89,7 +83,17 @@ class RecipeModel {
     });
   }
 
-  // For My Recipes
+  public static retrieveRecipesWithFilter(response: any, filter: Object): any { 
+    console.log(filter);
+
+    let query = this.model.find(filter);
+    query.exec( (err, item) => {
+      response.json(item);
+    });
+  }
+
+  /* Member methods */
+  
   public static retrieveRecipesByMemberID(response: any, filter: Object): any { 
     let query = this.model.find(filter);
     query.exec( (err, item) => {
@@ -136,28 +140,6 @@ class RecipeModel {
     });
   }
 
-
-  // TO-DO
-
-  // TO-DO: allow finding names includeing keywords
-  public static retrieveRecipeByName(response: any, filter: Object): any { 
-    let query = this.model.find(filter);
-    query.exec( (err, item) => {
-      response.json(item);
-    });
-  }
-
-  // TO-DO: allow finding recipes with any combos of types
-  public static retrieveRecipeByType(response: any, filter: Object): any { 
-
-    console.log(filter);
-
-    let query = this.model.find(filter);
-    query.exec( (err, item) => {
-      response.json(item);
-    });
-  }
-  
 }
 
 RecipeModel.createSchema();

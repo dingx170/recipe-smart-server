@@ -3,8 +3,9 @@ import {RecipeModel} from '../Models/RecipeModel';
 
 class RecipeController {
 
-    public static getRecipeByID(req: Request, res: Response) {
+    /* General methods */
 
+    public static getRecipeByID(req: Request, res: Response) {
         // 3. analyze request and use model to modify db data
         let id = req.params.id;
 
@@ -13,7 +14,7 @@ class RecipeController {
         console.log("View one recipe by id");
     }
 
-    public static getRecipesByFilters(req: Request, res: Response) {
+    public static getRecipesByFilter(req: Request, res: Response) {
         let name = req.query.name;
         let cost = req.query.cost;
         let meal_types = req.query.meal_types;
@@ -42,26 +43,25 @@ class RecipeController {
             filter["restrictions"] = {$nin: restrictions}; 
         }
 
-        RecipeModel.retrieveRecipeByType(res, filter);
-        console.log("View recipes by type");
+        RecipeModel.retrieveRecipesWithFilter(res, filter);
+        console.log("View recipes");
     }
 
-    public static getRecipesByMemberID(req: Request, res: Response) {
+    /* Member methods */
 
+    public static getRecipesByMemberID(req: Request, res: Response) {
         let member_id = req.params.member_id;
 
         RecipeModel.retrieveRecipesByMemberID(res, {member_id: member_id});
     }
 
     public static postRecipeByMemberID(req: Request, res: Response) {
-        
         let new_recipe = req.body;
 
         RecipeModel.createRecipeByMemberID(res, new_recipe);
     }
 
     public static putRecipe(req: Request, res: Response) {
-        
         let new_recipe = req.body;
         let recipe_id = new_recipe.recipe_id;
 
@@ -69,7 +69,6 @@ class RecipeController {
     }
 
     public static deleteRecipe(req: Request, res: Response) {
-
         let recipe_id = req.params.recipe_id;
 
         RecipeModel.removeRecipe(res, {recipe_id : recipe_id});

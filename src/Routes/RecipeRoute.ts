@@ -8,7 +8,7 @@ class RecipeRoute {
         // 2. get requests and pass to controller
         recipeRoute.get("/recipes/:id", RecipeController.getRecipeByID);
         
-        recipeRoute.get("/recipes", RecipeController.getRecipesByFilters);
+        recipeRoute.get("/recipes", RecipeController.getRecipesByFilter);
     }
 }
 
