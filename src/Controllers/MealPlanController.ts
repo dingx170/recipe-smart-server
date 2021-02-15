@@ -3,6 +3,45 @@ import {RecipeModel} from '../Models/RecipeModel';
 import {MealplanModel} from '../Models/MealPlanModel';
 
 class MealplanController {
+    private mealplan: MealplanModel
+    private idGenerator: number = 100
+
+    constructor(){
+        this.mealplan = new MealplanModel();
+        
+    }
+
+    public getMealplansByMemberId(req: Request, res: Response) {
+        var memberId = req.params.memberid;
+        console.log("Getting Member " + memberId + "'s mealplan");
+        this.mealplan.retrieveAllMealplansByMemberId(res, {member_id: memberId});
+    }
+
+    public getShoppintListFromAMealplan(req: Request, res: Response) {
+        var memberId = req.params.memberid;
+        var mealplanId = req.params.mealplanid;
+        console.log("Getting Member " + memberId + "'s mealplan " + mealplanId + "'s shoppinglist");
+        this.mealplan.retrieveShoppinglistFromMealplan(res, {mealplan_id: mealplanId, member_id: memberId});
+        console.log("View Member " + memberId + "'s mealplan " + mealplanId + "'s shoppinglist");
+    }
+
+    public getRecipeListFromAMealplan(req: Request, res: Response){
+        var memberId = req.params.memberid;
+        var mealplanId = req.params.mealplanid;
+        console.log("Getting Member " + memberId + "'s mealplan " + mealplanId + "'s recipelist");
+        this.mealplan.retrieveRecipelistFromMealplan(res, {mealplan_id: mealplanId, member_id: memberId});
+        console.log("View Member " + memberId + "'s mealplan " + mealplanId + "'s recipelist");
+    }
+
+    public updateShoppinglistOfAMealplan(req: Request, res: Response){
+        var memberId = req.params.memberid;
+        var mealplanId = req.params.mealplanid;
+        var shoppinglist = req.body;
+        console.log("Update Member " + memberId + "'s mealplan " + mealplanId + "'s shoppinglist");
+        this.mealplan.updateShoppinglist(res, {mealplan_id: mealplanId, member_id: memberId}, shoppinglist);
+        console.log("View Member " + memberId + "'s mealplan " + mealplanId + "'s shoppinglist");
+    }
+
 
     // private static MealPlanModel = new MealplanModel();
     // show a recommendation lis // need a method in recipemodel
@@ -31,8 +70,6 @@ class MealplanController {
 
         console.log(filter, meal_type);
         
-
-
         //RecipeModel.retrieveRecipeByFilter(res, filter);
     }
 
