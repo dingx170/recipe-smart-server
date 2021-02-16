@@ -92,8 +92,18 @@ class RecipeModel {
     });
   }
 
+  public static retrieveRecipesForMealPlan(filter: Object): any { 
+    console.log(filter);
+
+    let query = this.model.find(filter);
+    query.exec().then((res) => {
+      console.log(res);
+      return res;
+    });
+  }
+
   /* Member methods */
-  
+
   public static retrieveRecipesByMemberID(response: any, filter: Object): any { 
     let query = this.model.find(filter);
     query.exec( (err, item) => {

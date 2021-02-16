@@ -63,19 +63,29 @@ class RecipeModel {
         }
         this.model = mongooseConnection.model("Recipes", this.schema);
     }
-    static retrieveAllRecipes(response) {
-        let query = this.model.find({});
-        query.exec((err, itemArray) => {
-            response.json(itemArray);
-        });
-    }
+    /* General methods */
     static retrieveRecipeByID(response, filter) {
         let query = this.model.findOne(filter);
         query.exec((err, item) => {
             response.json(item);
         });
     }
-    // For My Recipes
+    static retrieveRecipesWithFilter(response, filter) {
+        console.log(filter);
+        let query = this.model.find(filter);
+        query.exec((err, item) => {
+            response.json(item);
+        });
+    }
+    static retrieveRecipesWithFilterForMealPlan(filter) {
+        console.log(filter);
+        let query = this.model.find(filter);
+        query.exec().then((res) => {
+            console.log(res);
+            return res;
+        });
+    }
+    /* Member methods */
     static retrieveRecipesByMemberID(response, filter) {
         let query = this.model.find(filter);
         query.exec((err, item) => {
@@ -112,22 +122,6 @@ class RecipeModel {
                 return;
             }
             response.json(recipe);
-        });
-    }
-    // TO-DO
-    // TO-DO: allow finding names includeing keywords
-    static retrieveRecipeByName(response, filter) {
-        let query = this.model.find(filter);
-        query.exec((err, item) => {
-            response.json(item);
-        });
-    }
-    // TO-DO: allow finding recipes with any combos of types
-    static retrieveRecipeByType(response, filter) {
-        console.log(filter);
-        let query = this.model.find(filter);
-        query.exec((err, item) => {
-            response.json(item);
         });
     }
 }
