@@ -27,6 +27,9 @@ class MealplanRoute {
         mealplanRouter.put('/mealplan/:memberid/:mealplanid/shoppinglist', (req, res)=> {
             this.mealplanController.updateShoppinglistOfAMealplan(req, res);
         });
+        mealplanRouter.delete('/mealplan/:memberid/:mealplanid', (req, res)=> {
+            this.mealplanController.deleteMealplan(req, res);
+        });
     }
 }
 export {MealplanRoute}

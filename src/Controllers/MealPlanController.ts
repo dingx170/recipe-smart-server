@@ -99,7 +99,13 @@ class MealplanController {
         // MealplanModel.createMealPlan(res, req);
     }
 
-    private static genearteRecipeList() {
+    public deleteMealplan(req: Request, res: Response) {
+        let mealplanId = req.params.mealplanid;
+        console.log({mealplan_id : mealplanId});
+        this.mealplan.removeMealplan(res, {mealplan_id : mealplanId});
+    }
+
+    private static genearteRecipeList(recipelist: RecipeModel[]) {
         
     }
 

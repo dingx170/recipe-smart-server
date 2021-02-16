@@ -29,8 +29,8 @@ class MealplanModel {
                 date: Date,
                 budget: Number,
                 group: Number,
-                recipe_list: [Number],
-                shopping_list: [Number],
+                recipe_list: [{recipe_id: Number, quantity: Number}],
+                shopping_list: [{ingredient_id: Number, quantity: Number}],
                 meal_type: {
                     type: String,
                     enum: MealType,
@@ -104,6 +104,17 @@ class MealplanModel {
         response.json(mealplan.shopping_list);
       });
       
+    }
+
+    public removeMealplan(response: any, filter: Object) {
+      console.log(filter);
+      this.model.findOneAndDelete(filter, {useFindAndModify: false}, (err, mealplan) =>{
+        if (err){
+          response.send(err);
+          return;
+        }
+        response.json(mealplan.mealplan_id);
+      });
     }
 
     
