@@ -22,6 +22,7 @@ class IngredientModel{
       }
       this.schema = new Schema(
         {
+          ingredient_id: Number,
           name: String,
           unit: String,
           price: Number,
