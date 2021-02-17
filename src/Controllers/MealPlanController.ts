@@ -105,12 +105,61 @@ class MealplanController {
         this.mealplan.removeMealplan(res, {mealplan_id : mealplanId});
     }
 
-    private static genearteRecipeList(recipelist: RecipeModel[]) {
-        
+    private genearteRecipeList(recipelist: any[], group, budget, dish): Object[] {
+        let recipes: {recipe: any, quatity: Number}[] = [];
+        let total = 0;
+        while(total < dish){
+            var index = MealplanController.generateRandomNumber(recipelist.length);
+            var recipe = recipelist[index];
+            var quatity = Math.floor(group / recipe.group.valueOf());
+            if(recipe.cost * quatity<= budget / dish){    
+                recipes.push({recipe: recipe, quatity: quatity});
+                total ++;      
+            }
+            recipelist.splice(index, 1);
+        }
+        console.log(recipes.length);
+        return recipes;
     }
 
-    private static genearteShoppingList() {
+    private static generateRandomNumber(max: number){
+        return Math.floor(Math.random()*Math.floor(max));
+    }
 
+    public test(req: Request, res: Response) {
+        let a = req.body.recipelist;
+        let g:number = req.query.group;
+        let b:number = req.query.budget;
+        let d:number = req.query.dish;
+        let recipes: Object[] = this.genearteRecipeList(a, g, b, d);
+        console.log(recipes.length);
+        var shop = this.genearteShoppingList(recipes);
+        res.send({recipes: recipes, shoplist:shop});
+    }
+
+    public genearteShoppingList(recipelist) {
+        console.log(recipelist.length);
+        let test: {ingredientId: Number, quantity: Number}[] = [];
+        for(let i = 0; i < recipelist.length; i++) {
+            let ingredientlist:[Number, Number][] = recipelist[i].recipe.ingredients;
+            var recipe = recipelist[i];
+            console.log(recipe.recipe.ingredients);
+            for(let i = 0; i < ingredientlist.length; i++) {
+                console.log(ingredientlist[i]);
+                var ingredient = ingredientlist[i];
+                let ingredientId: Number = ingredient[0];
+                var index = test.findIndex((obj=>obj.ingredientId == ingredientId))
+                console.log(index);
+                if(index == -1){
+                    var quatity = ingredient[1];
+                    test.push({ingredientId:ingredientId, quantity:quatity});
+                } else {
+                    test[index].quantity = test[index].quantity.valueOf() + ingredient[1].valueOf();
+                }
+            }
+        }
+        console.log(test);
+        return test;
     }
 }
 
