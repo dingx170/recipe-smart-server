@@ -8,15 +8,24 @@ class MealplanController {
 
     constructor(){
         this.mealplan = new MealplanModel();
-        
     }
 
+    /**
+     * Get all the mealplans belong to a member
+     * @param req 
+     * @param res 
+     */
     public getMealplansByMemberId(req: Request, res: Response) {
         var memberId = req.params.memberid;
         console.log("Getting Member " + memberId + "'s mealplan");
         this.mealplan.retrieveAllMealplansByMemberId(res, {member_id: memberId});
     }
 
+    /**
+     * Get shoppinglist of a mealplan
+     * @param req 
+     * @param res 
+     */
     public getShoppintListFromAMealplan(req: Request, res: Response) {
         var memberId = req.params.memberid;
         var mealplanId = req.params.mealplanid;
@@ -25,6 +34,11 @@ class MealplanController {
         console.log("View Member " + memberId + "'s mealplan " + mealplanId + "'s shoppinglist");
     }
 
+    /**
+     * Get recipelist of a mealplan
+     * @param req 
+     * @param res 
+     */
     public getRecipeListFromAMealplan(req: Request, res: Response){
         var memberId = req.params.memberid;
         var mealplanId = req.params.mealplanid;
@@ -33,6 +47,11 @@ class MealplanController {
         console.log("View Member " + memberId + "'s mealplan " + mealplanId + "'s recipelist");
     }
 
+    /**
+     * Update shoppinglist of a mealplan
+     * @param req 
+     * @param res 
+     */
     public updateShoppinglistOfAMealplan(req: Request, res: Response){
         var memberId = req.params.memberid;
         var mealplanId = req.params.mealplanid;
