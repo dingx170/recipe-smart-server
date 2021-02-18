@@ -22,14 +22,6 @@ class DataAccess {
         mongoose.set('useNewUrlParser', true);
         mongoose.set('useUnifiedTopology', true);    
         this.mongooseInstance = mongoose.connect(this.DB_CONNECTION_STRING);
-        
-        // mongoose.connect('mongodb://localhost:27017/test', {useNewUrlParser: true}, function(err) {
-        //     if (err) {
-        //         console.log(err);
-        //         return;
-        //     }
-        //     console.log("Database connected");
-        // });
 
         return this.mongooseInstance;
     }
