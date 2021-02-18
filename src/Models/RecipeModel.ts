@@ -14,10 +14,10 @@ class RecipeModel {
   public static schema: any;
   public static model: any;
 
-  public constructor() {
-    RecipeModel.createSchema();
-    RecipeModel.createModel();
-  }
+  // public constructor() {
+  //   RecipeModel.createSchema();
+  //   RecipeModel.createModel();
+  // }
 
   public static createSchema(): void {
 
