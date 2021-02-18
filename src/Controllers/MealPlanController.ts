@@ -4,7 +4,7 @@ import {MealplanModel} from '../Models/MealPlanModel';
 
 class MealplanController {
     private mealplan: MealplanModel
-    private idGenerator: number = 1000
+    private idGenerator: number = 10000
 
     constructor(){
         this.mealplan = new MealplanModel();
@@ -277,7 +277,7 @@ class MealplanController {
      */
     public genearteShoppingList(recipelist: any[]) {
         //console.log(recipelist.length);
-        let test: {ingredientId: Number, quantity: Number}[] = [];
+        let test: {ingredient_id: Number, quantity: Number}[] = [];
         for(let i = 0; i < recipelist.length; i++) {
             let ingredientlist:[Number, Number][] = recipelist[i].recipe.ingredients;
             var recipe = recipelist[i];
@@ -286,11 +286,11 @@ class MealplanController {
                 //console.log(ingredientlist[i]);
                 var ingredient = ingredientlist[i];
                 let ingredientId: Number = ingredient[0];
-                var index = test.findIndex((obj=>obj.ingredientId == ingredientId))
+                var index = test.findIndex((obj=>obj.ingredient_id == ingredientId))
                 //console.log(index);
                 if(index == -1){
                     var quatity = ingredient[1];
-                    test.push({ingredientId:ingredientId, quantity:quatity});
+                    test.push({ingredient_id:ingredientId, quantity:quatity});
                 } else {
                     test[index].quantity = test[index].quantity.valueOf() + ingredient[1].valueOf();
                 }
