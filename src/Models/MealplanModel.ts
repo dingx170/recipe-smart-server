@@ -31,18 +31,18 @@ class MealplanModel {
                 group: Number,
                 recipe_list: [{recipe_id: Number, quantity: Number}],
                 shopping_list: [{ingredient_id: Number, quantity: Number}],
-                meal_type: {
+                meal_type: [{
                     type: String,
                     enum: MealType,
-                  },
-                cuisine_type: {
+                  }],
+                cuisine_type: [{
                     type: String,
                     enum: CuisineType,
-                  },
-                feature_type: {
+                  }],
+                feature_type: [{
                     type: String,
                     enum: FeatureType,
-                  },
+                  }],
                 restrictions: [
                     {
                       type: String,
@@ -62,7 +62,7 @@ class MealplanModel {
           if(err) {
             response.send(err);
           }
-          response.json(mealplan.mealplan_id);
+          response.json(mealplan);
         })
     }
     
