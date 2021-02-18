@@ -9,15 +9,6 @@ class MealplanRoute {
         mealplanRouter.get('/mealplan/:memberid', (req, res)=> {
             this.mealplanController.getMealplansByMemberId(req, res);
         })
-
-        mealplanRouter.post('/mealplan/:memberid', (req, res) => {
-            var mealplan = req.body;
-            mealplan.mealplan_id = this.idGenerator;
-            console.log("Adding mealplan " + this.idGenerator);
-            //this.mealplan.addNewMealPlan(res, mealplan);
-            console.log("Added mealplan " + this.idGenerator);            
-            this.idGenerator++;
-        });
         mealplanRouter.get('/mealplan/:memberid/:mealplanid/shoppinglist', (req, res)=> {
             this.mealplanController.getShoppintListFromAMealplan(req, res);
         });
@@ -30,6 +21,12 @@ class MealplanRoute {
         mealplanRouter.delete('/mealplan/:memberid/:mealplanid', (req, res)=> {
             this.mealplanController.deleteMealplan(req, res);
         });
+        mealplanRouter.get('/mealplan/:memberid/customization/getrecipelist', (req,res) => {
+            this.mealplanController.getRecipesByFilters(req, res);
+        })
+        mealplanRouter.post('/mealplan/:memberid/customization/', (req, res)=> {
+            this.mealplanController.postMealPlanCustomized(req, res);
+        })
     }
 }
 export {MealplanRoute}
