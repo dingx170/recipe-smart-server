@@ -34,42 +34,28 @@ class App {
 
     // config API endpoints
     private setupRoutes(): void {
-        
-
-        // // route handler for default home page
-        // router.get("/home", (req : Request, res : Response) => {
-        //     res.send("Hello from server! Hello world!")
-        // });
-
-        // router.post("/myrecipe", (req : Request, res : Response) => {
-        //     res.send(req.body);
-        // });
-
-        // this.expApp.use('/', router);
-
-        // TO-USE-LATER
-        // this.expApp.use('/images', express.static(__dirname+'/img'));
-        // this.expApp.use('/', express.static(__dirname+'/pages'));
-        // this.expApp.use("/users", UserRoute);
 
         let router =  express.Router();
-        //var mealplan = new Mealplan();
-        //mealplan.registerRoutes(router);
 
         // 1. register routes
         RecipeRoute.registerRoutes(router);
         MyRecipeRoute.registerRoutes(router);
         UserRoute.registerRoutes(router);
+        MealplanRoute.registerMealplanRoutes(router);
+        // TO-USE-LATER
 
-        // EJS
-        this.expApp.set('view engine', 'ejs');
+        // this.expApp.use('/images', express.static(__dirname+'/img'));
+        // this.expApp.use('/', express.static(__dirname+'/pages'));
+        // this.expApp.use("/users", UserRoute);
+        
+        // EJS 
+        
+        // this.expApp.set('view engine', 'ejs');
 
-        this.expApp.use(express.static(__dirname + './src'));
+        // this.expApp.use(express.static(__dirname + './src'));
 
         //TempPageRoute.registerRoutes(router);
-
-        MealplanRoute.registerMealplanRoutes(router);
-
+        
 
         this.expApp.use('/', router);
     }
