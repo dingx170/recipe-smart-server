@@ -2,12 +2,12 @@ import express, {Application, Request, Response} from "express";
 import * as bodyParser from 'body-parser';
 import {RecipeRoute} from './Routes/RecipeRoute';
 // import {myRecipesRoute} from './Routes/MyRecipes';
-import {UserRoute} from "./Routes/User";
+import {UserRoute} from "./Routes/UserRoute";
 import {MealplanRoute} from "./Routes/MealplanRoute"
 import { RecipeModel } from "./Models/RecipeModel";
 import { MyRecipeRoute } from "./Routes/MyRecipeRoute";
 
-import { TempPageRoute } from "./Routes/TempPageRoute";
+
 import ejs from "ejs";
 import multer from "multer";
 import path from "path";
@@ -66,7 +66,7 @@ class App {
 
         this.expApp.use(express.static(__dirname + './src'));
 
-        TempPageRoute.registerRoutes(router);
+        //TempPageRoute.registerRoutes(router);
 
         MealplanRoute.registerMealplanRoutes(router);
 
