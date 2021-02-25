@@ -7,7 +7,7 @@ import {MealplanRoute} from "./Routes/MealplanRoute"
 import { RecipeModel } from "./Models/RecipeModel";
 import { MyRecipeRoute } from "./Routes/MyRecipeRoute";
 
-
+import cors from "cors";
 import ejs from "ejs";
 import multer from "multer";
 import path from "path";
@@ -30,6 +30,8 @@ class App {
         // TO-USE-LATER
         // this.express.use(logger('dev'));
         this.expApp.use(bodyParser.urlencoded({ extended: false }));
+
+        this.expApp.use(cors());
     }
 
     // config API endpoints
