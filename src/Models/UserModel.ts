@@ -31,7 +31,7 @@ class UserModel {
     this.schema = new Schema(
       {
         user_id: Number,
-        user_name: String,
+        name: String,
         password: String,
         email: String,
         photo: Buffer,
@@ -114,6 +114,11 @@ class UserModel {
         res.send("updated successfully.");
     })
 
+  }
+
+  public async findUser(name: String, password: String, res: any){
+    console.log(name);
+    return await this.model.findOne({name: name});
   }
 }
 

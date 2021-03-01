@@ -34,5 +34,37 @@ class UserController{
 	    console.log("updated user");
     }
 
+    public static async logincheck(req: Request, res : Response){
+        let id = req.query.username;
+        let password = req.query.password;
+        let ans = await UserController.userModel.findUser(id, password, res);
+        let vali = ans.password == password;
+        console.log(ans.password + " input: " + password +" result is " + vali);
+        if(vali){
+            req.session.regenerate(function(err) {
+                if(err){
+                    return res.json({ret_code: 2, ret_msg: '登录失败'});                
+                }
+                
+                req.session.loginUser = ans.user_id;
+                
+                res.json({ret_code: 0, ret_msg: '登录成功', userid: req.session.loginUser});                           
+            });
+        }else{
+            res.json({ret_code: 1, ret_msg: '账号或密码错误'});
+        }  
+    }
+
+    public static getSession(req: Request, res : Response){
+        var sess = req.session;
+        var loginUser = sess.loginUser;
+        var isLogined = !!loginUser;
+
+        res.send({
+            isLogined: isLogined,
+            id: loginUser || ''
+        });
+    }
+
 }
 export {UserController}

@@ -60,7 +60,11 @@ class UserRoute{
         
         userRoute.post("/user/", UserController.createUser);
 
-        userRoute.put("/user/:id", UserController.updateUser)
+        userRoute.put("/user/:id", UserController.updateUser);
+
+        userRoute.post("/login", UserController.logincheck);
+
+        userRoute.get("/login", UserController.getSession);
     }
 
 
