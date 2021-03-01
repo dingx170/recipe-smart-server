@@ -11,8 +11,8 @@ interface IRecipeModel extends Document {
     name: String;
     member_id: Number;
     date: Date;
-    steps: [String];
-    ingredients: [[Number, Number]];
+    steps: [{step: String}],
+    ingredients: [{name: String, unit: String, count: Number}],
     group: Number;
     cost: Number;
     unit_cost: Number,
