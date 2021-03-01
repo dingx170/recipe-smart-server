@@ -1,4 +1,5 @@
 enum CuisineType {
+    None,
     Chinese,
     Mexican,
     Italian,

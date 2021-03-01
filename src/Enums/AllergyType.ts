@@ -1,4 +1,5 @@
 enum AllergyType {
+    None,
     Corn,
     Egg,
     Fish,
