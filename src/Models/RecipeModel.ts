@@ -36,7 +36,7 @@ class RecipeModel {
         group: Number,
         cost: Number,
         unit_cost: Number,
-        photo: Buffer,
+        photo: String,
         likes: Number,
         meal_type: {
           type: String,
