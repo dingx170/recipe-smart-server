@@ -12,6 +12,9 @@ import ejs from "ejs";
 import multer from "multer";
 import path from "path";
 
+var session = require('express-session');
+var FileStore = require('session-file-store')(session);
+
 class App {
 
     public expApp: Application;
@@ -26,10 +29,20 @@ class App {
     // config middleware
     private setupMiddleware(): void {
         this.expApp.use(bodyParser.json());
-
+        
         // TO-USE-LATER
         // this.express.use(logger('dev'));
         this.expApp.use(bodyParser.urlencoded({ extended: false }));
+        this.expApp.use(session({
+            name: 'skey',
+            secret: 'recipesmart',  // signature for session id
+            store: new FileStore(),  // local session storage
+            saveUninitialized: false,  
+            resave: false,  
+            cookie: {
+                maxAge: 10 * 1000  // expiration time in mili
+            }
+        }));
     }
 
     // config API endpoints
@@ -58,6 +71,7 @@ class App {
         
 
         this.expApp.use('/', router);
+        
     }
 }
 
