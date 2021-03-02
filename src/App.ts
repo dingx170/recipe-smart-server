@@ -7,7 +7,7 @@ import {MealplanRoute} from "./Routes/MealplanRoute"
 import { RecipeModel } from "./Models/RecipeModel";
 import { MyRecipeRoute } from "./Routes/MyRecipeRoute";
 
-
+import cors from "cors";
 import ejs from "ejs";
 import multer from "multer";
 import path from "path";
@@ -43,6 +43,8 @@ class App {
                 maxAge: 10 * 1000  // expiration time in mili
             }
         }));
+
+        this.expApp.use(cors());
     }
 
     // config API endpoints
