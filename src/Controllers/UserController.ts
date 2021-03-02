@@ -43,15 +43,15 @@ class UserController{
         if(vali){
             req.session.regenerate(function(err) {
                 if(err){
-                    return res.json({ret_code: 2, ret_msg: '登录失败'});                
+                    return res.json({ret_code: 2, ret_msg: 'Login failed'});                
                 }
                 
                 req.session.loginUser = ans.user_id;
                 
-                res.json({ret_code: 0, ret_msg: '登录成功', userid: req.session.loginUser});                           
+                res.json({ret_code: 0, ret_msg: 'Login Successful', userid: req.session.loginUser});                           
             });
         }else{
-            res.json({ret_code: 1, ret_msg: '账号或密码错误'});
+            res.json({ret_code: 1, ret_msg: 'Wrong username or password'});
         }  
     }
 
