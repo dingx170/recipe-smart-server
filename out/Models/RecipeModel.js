@@ -8,13 +8,9 @@ const CuisineType_1 = require("../Enums/CuisineType");
 const FeatureType_1 = require("../Enums/FeatureType");
 const AllergyType_1 = require("../Enums/AllergyType");
 const RecipeTag_1 = require("../Enums/RecipeTag");
+const CounterModel_1 = require("./CounterModel");
 let mongooseConnection = DataAccess_1.DataAccess.mongooseConnection;
-// let mongooseObg = DataAccess.mongooseInstance;
 class RecipeModel {
-    // public constructor() {
-    //   RecipeModel.createSchema();
-    //   RecipeModel.createModel();
-    // }
     static createSchema() {
         if (this.schema) {
             return;
@@ -93,17 +89,19 @@ class RecipeModel {
         });
     }
     static createRecipeByMemberID(response, new_recipe) {
-        // let new_recipe_id: number = 0; 
-        // this.model.countDocuments({}, function(err, c) {
-        //   console.log('Count is ' + c);
-        // });
-        // new_recipe.recipe_id = new_recipe_id;
-        this.model(new_recipe).save((err, new_recipe) => {
+        CounterModel_1.CounterModel.model.findOneAndUpdate({ "name": "recipe" }, { $inc: { 'count': 1 } }, { useFindAndModify: false }, (err, record) => {
             if (err) {
                 response.send(err);
                 return;
             }
-            response.json(new_recipe);
+            new_recipe.recipe_id = record.count + 1;
+            this.model(new_recipe).save((err, new_recipe) => {
+                if (err) {
+                    response.send(err);
+                    return;
+                }
+                response.json(new_recipe);
+            });
         });
     }
     static updateRecipe(response, filter, new_recipe) {

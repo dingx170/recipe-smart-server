@@ -31,6 +31,8 @@ const UserRoute_1 = require("./Routes/UserRoute");
 const MealplanRoute_1 = require("./Routes/MealplanRoute");
 const MyRecipeRoute_1 = require("./Routes/MyRecipeRoute");
 const cors_1 = __importDefault(require("cors"));
+var session = require('express-session');
+var FileStore = require('session-file-store')(session);
 class App {
     // run config methods
     constructor() {
@@ -44,6 +46,16 @@ class App {
         // TO-USE-LATER
         // this.express.use(logger('dev'));
         this.expApp.use(bodyParser.urlencoded({ extended: false }));
+        this.expApp.use(session({
+            name: 'skey',
+            secret: 'recipesmart',
+            store: new FileStore(),
+            saveUninitialized: false,
+            resave: false,
+            cookie: {
+                maxAge: 10 * 1000 // expiration time in mili
+            }
+        }));
         this.expApp.use(cors_1.default());
     }
     // config API endpoints
