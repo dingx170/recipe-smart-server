@@ -3,3 +3,4 @@
 /
 out/DataAccess.js
 db/*
+/sessions
