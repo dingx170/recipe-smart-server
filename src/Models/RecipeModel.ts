@@ -1,23 +1,18 @@
-import {Schema} from "mongoose"
-import {DataAccess} from '../DataAccess'
-import {IRecipeModel} from '../Interfaces/IRecipeModel'
-import {MealType} from '../Enums/MealType'
-import {CuisineType} from '../Enums/CuisineType'
-import {FeatureType} from '../Enums/FeatureType'
-import {AllergyType} from '../Enums/AllergyType'
-import {RecipeTag} from '../Enums/RecipeTag'
+import {Schema} from "mongoose";
+import {DataAccess} from '../DataAccess';
+import {IRecipeModel} from '../Interfaces/IRecipeModel';
+import {MealType} from '../Enums/MealType';
+import {CuisineType} from '../Enums/CuisineType';
+import {FeatureType} from '../Enums/FeatureType';
+import {AllergyType} from '../Enums/AllergyType';
+import {RecipeTag} from '../Enums/RecipeTag';
+import {CounterModel} from './CounterModel';
 
 let mongooseConnection = DataAccess.mongooseConnection;
-// let mongooseObg = DataAccess.mongooseInstance;
 
 class RecipeModel {
   public static schema: any;
   public static model: any;
-
-  // public constructor() {
-  //   RecipeModel.createSchema();
-  //   RecipeModel.createModel();
-  // }
 
   public static createSchema(): void {
 
@@ -113,18 +108,22 @@ class RecipeModel {
 
   public static createRecipeByMemberID(response: any, new_recipe: any): any { 
 
-    // let new_recipe_id: number = 0; 
-    // this.model.countDocuments({}, function(err, c) {
-    //   console.log('Count is ' + c);
-    // });
-    // new_recipe.recipe_id = new_recipe_id;
-
-    this.model(new_recipe).save((err, new_recipe) => {
-      if (err) {
+    CounterModel.model.findOneAndUpdate({"name": "recipe"}, {$inc: {'count': 1}}, {useFindAndModify: false}, (err, record) => {
+      if (err){
         response.send(err);
         return;
       }
-      response.json(new_recipe);
+
+      new_recipe.recipe_id = record.count + 1;
+
+      this.model(new_recipe).save((err, new_recipe) => {
+        if (err) {
+          response.send(err);
+          return;
+        }
+        response.json(new_recipe);
+      });
+      
     });
   }
 
