@@ -1,4 +1,5 @@
 enum RecipeTag {
+    None,
     Popular,
     GoldenRecipe,
     CostEffective

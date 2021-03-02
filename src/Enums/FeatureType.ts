@@ -1,7 +1,8 @@
 enum FeatureType {
+    None,
     MeatLover,
     Vegan,
-    vegetarian,
+    Vegetarian,
     LowCarb
 }
 

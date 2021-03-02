@@ -27,10 +27,10 @@ const express_1 = __importDefault(require("express"));
 const bodyParser = __importStar(require("body-parser"));
 const RecipeRoute_1 = require("./Routes/RecipeRoute");
 // import {myRecipesRoute} from './Routes/MyRecipes';
-const User_1 = require("./Routes/User");
+const UserRoute_1 = require("./Routes/UserRoute");
 const MealplanRoute_1 = require("./Routes/MealplanRoute");
 const MyRecipeRoute_1 = require("./Routes/MyRecipeRoute");
-const TempPageRoute_1 = require("./Routes/TempPageRoute");
+const cors_1 = __importDefault(require("cors"));
 class App {
     // run config methods
     constructor() {
@@ -44,33 +44,24 @@ class App {
         // TO-USE-LATER
         // this.express.use(logger('dev'));
         this.expApp.use(bodyParser.urlencoded({ extended: false }));
+        this.expApp.use(cors_1.default());
     }
     // config API endpoints
     setupRoutes() {
-        // // route handler for default home page
-        // router.get("/home", (req : Request, res : Response) => {
-        //     res.send("Hello from server! Hello world!")
-        // });
-        // router.post("/myrecipe", (req : Request, res : Response) => {
-        //     res.send(req.body);
-        // });
-        // this.expApp.use('/', router);
+        let router = express_1.default.Router();
+        // 1. register routes
+        RecipeRoute_1.RecipeRoute.registerRoutes(router);
+        MyRecipeRoute_1.MyRecipeRoute.registerRoutes(router);
+        UserRoute_1.UserRoute.registerRoutes(router);
+        MealplanRoute_1.MealplanRoute.registerMealplanRoutes(router);
         // TO-USE-LATER
         // this.expApp.use('/images', express.static(__dirname+'/img'));
         // this.expApp.use('/', express.static(__dirname+'/pages'));
         // this.expApp.use("/users", UserRoute);
-        let router = express_1.default.Router();
-        //var mealplan = new Mealplan();
-        //mealplan.registerRoutes(router);
-        // 1. register routes
-        RecipeRoute_1.RecipeRoute.registerRoutes(router);
-        MyRecipeRoute_1.MyRecipeRoute.registerRoutes(router);
-        User_1.UserRoute.registerRoutes(router);
-        // EJS
-        this.expApp.set('view engine', 'ejs');
-        this.expApp.use(express_1.default.static(__dirname + './src'));
-        TempPageRoute_1.TempPageRoute.registerRoutes(router);
-        MealplanRoute_1.MealplanRoute.registerMealplanRoutes(router);
+        // EJS 
+        // this.expApp.set('view engine', 'ejs');
+        // this.expApp.use(express.static(__dirname + './src'));
+        //TempPageRoute.registerRoutes(router);
         this.expApp.use('/', router);
     }
 }

@@ -11,10 +11,10 @@ const RecipeTag_1 = require("../Enums/RecipeTag");
 let mongooseConnection = DataAccess_1.DataAccess.mongooseConnection;
 // let mongooseObg = DataAccess.mongooseInstance;
 class RecipeModel {
-    constructor() {
-        RecipeModel.createSchema();
-        RecipeModel.createModel();
-    }
+    // public constructor() {
+    //   RecipeModel.createSchema();
+    //   RecipeModel.createModel();
+    // }
     static createSchema() {
         if (this.schema) {
             return;
@@ -24,12 +24,12 @@ class RecipeModel {
             name: String,
             member_id: Number,
             date: Date,
-            steps: [String],
-            ingredients: [[Number, Number]],
+            steps: [{ step: String }],
+            ingredients: [{ name: String, unit: String, count: Number }],
             group: Number,
             cost: Number,
             unit_cost: Number,
-            photo: Buffer,
+            photo: String,
             likes: Number,
             meal_type: {
                 type: String,
@@ -77,7 +77,7 @@ class RecipeModel {
             response.json(item);
         });
     }
-    static retrieveRecipesWithFilterForMealPlan(filter) {
+    static retrieveRecipesForMealPlan(filter) {
         console.log(filter);
         let query = this.model.find(filter);
         query.exec().then((res) => {
