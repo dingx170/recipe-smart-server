@@ -35,9 +35,15 @@ class UserController{
     }
 
     public static async logincheck(req: Request, res : Response){
-        let id = req.query.username;
-        let password = req.query.password;
-        let ans = await UserController.userModel.findUser(id, password, res);
+        let id = req.body.username;
+        let password = req.body.password;
+        let ans: any;
+        try{
+            ans = await UserController.userModel.findUser(id, password, res);
+        }catch(err){
+            // console.log(err);
+        }
+        
         let vali = ans.password == password;
         console.log(ans.password + " input: " + password +" result is " + vali);
         if(vali){
