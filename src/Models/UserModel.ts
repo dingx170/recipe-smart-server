@@ -3,7 +3,6 @@ import {DataAccess} from '../DataAccess'
 import {IUserModel} from '../Interfaces/IUserModel'
 import {AllergyType} from '../Enums/AllergyType'
 import { ObjectID, ObjectId } from "mongodb"
-import { UserTag } from "../Enums/UserTag"
 
 
 let mongooseConnection = DataAccess.mongooseConnection;
