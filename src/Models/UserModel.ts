@@ -61,17 +61,17 @@ class UserModel {
   }
 
   // finding user by email and username combination
-  public retrieveUser(response: any, filter: Object): any { 
-    let query = this.model.find(filter);
-    query.exec( (err, item) => {
-      if(err){
-        console.log(err);
+  // public retrieveUser(response: any, filter: Object): any { 
+  //   let query = this.model.find(filter);
+  //   query.exec( (err, item) => {
+  //     if(err){
+  //       console.log(err);
         
-        return;
-      }
-      response.json(item);
-    });
-  }
+  //       return;
+  //     }
+  //     response.json(item);
+  //   });
+  // }
 
   // creating user
   public createUser(user_specs: any, res: any): any{
