@@ -2,17 +2,19 @@ import  {Schema} from "mongoose"
 import {DataAccess} from '../DataAccess'
 import {IUserModel} from '../Interfaces/IUserModel'
 import {AllergyType} from '../Enums/AllergyType'
-import { ObjectID, ObjectId } from "mongodb"
-
+import {CounterModel} from './CounterModel';
 
 let mongooseConnection = DataAccess.mongooseConnection;
 
-
+/**
+ * UserModel class as a singleton class
+ * Used as access to mongo data source in retrieving, updating user
+ */
 class UserModel {
   private schema: any;
   private model: any;
   private static instance: UserModel;
-  private static idGenerator:number = 1001;
+  
  
 
   private constructor() {
@@ -48,65 +50,68 @@ class UserModel {
     this.model = mongooseConnection.model<IUserModel>("User", this.schema);
   }
 
+  /**
+   * Retrieve user by id and return structured data to requesting end
+   * @param res 
+   * @param myid 
+   */
   public retrieveUserByID(res: any, myid: any): any {
 
     let query = this.model.findOne({user_id:myid});
     query.exec( (err, item) => {
         if(err){
           console.log(err);
-          return;
+          res.json({ret_code: -1, ret_msg: 'User Not Exist', user_obj: {}});
         }
-        res.json(item);
+        res.json({ret_code: 1, ret_msg: 'User Found', user_obj: item});
       });
   }
 
-  // finding user by email and username combination
-  // public retrieveUser(response: any, filter: Object): any { 
-  //   let query = this.model.find(filter);
-  //   query.exec( (err, item) => {
-  //     if(err){
-  //       console.log(err);
-        
-  //       return;
-  //     }
-  //     response.json(item);
-  //   });
-  // }
 
-  // creating user
+  /**
+   * Create new user with given user object
+   * returns user object and user_id
+   * @param user_specs 
+   * @param res 
+   */
   public createUser(user_specs: any, res: any): any{
 
-    
-    user_specs.user_id = UserModel.idGenerator;
-    
-    this.model.create([user_specs], (err)=>{
-      if(err){
-        console.log('object creation failed.');
+
+    CounterModel.model.findOneAndUpdate({"name": "user"}, {$inc: {'count': 1}}, {useFindAndModify: false}, (err, record) => {
+      if (err){
+        res.json({ret_code: -1, ret_msg: "creation failed", userid: -1})
+        return;
       }
+
+      user_specs.user_id = record.count + 1;
+
+      this.model(user_specs).save((err, item) => {
+        if (err) {
+          res.json({ret_code: -1, ret_msg: "create user failed", userid: -1});
+          return;
+        }
+        res.json({ret_code: 1, ret_msg: "updated successfully.", userid: user_specs.user_id});
+      });  
       
     });
-    res.send(UserModel.idGenerator.toString());
-    UserModel.idGenerator++;
-
-    // const newUser = new this.model(user_specs);
-    // newUser.save((err, ret) =>{
-    //     if(err){
-    //         console.log(err);
-    //         return;
-    //     }
-    //     res.send(ret.id);
-    // })
   }
 
-  //update user
+  /**
+   * Update user profile with given specs
+   * will return error -1 to frontend when failed otherwise code 1 and user id back to front end
+   * @param id 
+   * @param new_specs 
+   * @param res 
+   */
   public updateUser(id: any, new_specs: any, res: any): any{
     this.model.updateOne({user_id: id}, new_specs, (err) =>{
         if(err){
             console.log(err);
             console.log('update behavior failed.')
+            res.json({ret_code: -1, ret_msg: "update failed", userid: id});
             return;
         }
-        res.send("updated successfully.");
+        res.json({ret_code: 1, ret_msg: "updated successfully.", userid: id});
     })
 
   }
