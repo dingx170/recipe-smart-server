@@ -40,11 +40,7 @@ class UserModel {
             type: String,
             enum: AllergyType
           }
-        ],
-        userTags:{
-            type:String,
-            enum: UserTag
-        }
+        ]
       }, {collection: 'users'}
     );
   }

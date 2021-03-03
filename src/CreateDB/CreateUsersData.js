@@ -10,8 +10,7 @@ usersCollection.insert(
         "password": "12345678",
         "email": "UncleSam@gmail.com",
         "photo": null,
-        "restrictions": ["Corn", "Peanut"],
-        "user_tag": "Rising_star"
+        "restrictions": ["Corn", "Peanut"]
 
     }
     
@@ -23,8 +22,7 @@ usersCollection.insert({
     "password": "12345678",
     "email": "UncleJohn@gmail.com",
     "photo": null,
-    "restrictions": ["Shellfish", "Peanut"],
-    "user_tag": "Rookie"
+    "restrictions": ["Shellfish", "Peanut"]
 });
 
 usersCollection.insert({
@@ -33,8 +31,7 @@ usersCollection.insert({
     "password": "12345678",
     "email": "Frankie@gmail.com",
     "photo": null,
-    "restrictions": ["Peanut"],
-    "user_tag": "Expert"
+    "restrictions": ["Peanut"]
 });
 
 usersCollection.insert({
@@ -43,8 +40,7 @@ usersCollection.insert({
     "password": "12345678",
     "email": "UncleSam@gmail.com",
     "photo": null,
-    "restrictions": ["Corn", "Peanut"],
-    "user_tag": "rising_star"
+    "restrictions": ["Corn", "Peanut"]
 });
 
 usersCollection.insert({
@@ -53,8 +49,7 @@ usersCollection.insert({
     "password": "12345678",
     "email": "bCate@gmail.com",
     "photo": null,
-    "restrictions": ["Milk"],
-    "user_tag": "Chef"
+    "restrictions": ["Milk"]
 });
 
 
