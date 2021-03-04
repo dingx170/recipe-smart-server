@@ -120,6 +120,20 @@ class UserModel {
     console.log(name);
     return await this.model.findOne({name: name});
   }
+
+  public validateNameEmail(username: string, userEmail: string, resp: any): any{
+    this.model.exists({$or:[{name: username}, {email: userEmail}]}, (err, res) =>{
+      if(err){
+        console.log(err);
+        console.log("no match found");
+        resp.json(err);
+      }
+      else{
+        resp.json(res);
+      }
+
+    });
+  }
 }
 
 export {UserModel};

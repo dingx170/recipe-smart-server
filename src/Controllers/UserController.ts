@@ -72,5 +72,13 @@ class UserController{
         });
     }
 
+    public static validateNameEmail(req: Request, res : Response){
+        let name = req.query.name;
+        let email = req.query.email;
+        UserController.userModel.validateNameEmail(name, email, res);
+        console.log("executed validation for name and email");
+
+    }
+
 }
 export {UserController}

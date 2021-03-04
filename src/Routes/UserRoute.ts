@@ -65,6 +65,8 @@ class UserRoute{
         userRoute.post("/login", UserController.logincheck);
 
         userRoute.get("/login", UserController.getSession);
+
+        userRoute.get("/validation", UserController.validateNameEmail);
     }
 
 
