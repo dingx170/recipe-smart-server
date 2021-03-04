@@ -63,7 +63,13 @@ class UserModel {
           console.log(err);
           res.json({ret_code: -1, ret_msg: 'User Not Exist', user_obj: {}});
         }
-        res.json({ret_code: 1, ret_msg: 'User Found', user_obj: item});
+        res.json({ret_code: 1, ret_msg: 'User Found', 
+                  user_obj: {user_name: item.name, 
+                             password: item.password, 
+                             email: item.email, 
+                             photo: null, 
+                             restrictions: item.restrictions}
+                });
       });
   }
 
@@ -121,6 +127,12 @@ class UserModel {
     return await this.model.findOne({name: name});
   }
 
+  /**
+   * Validate the name and email to see if they already exists
+   * @param username 
+   * @param userEmail 
+   * @param resp 
+   */
   public validateNameEmail(username: string, userEmail: string, resp: any): any{
     this.model.exists({$or:[{name: username}, {email: userEmail}]}, (err, res) =>{
       if(err){

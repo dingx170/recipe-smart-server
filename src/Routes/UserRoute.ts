@@ -56,7 +56,7 @@ class UserRoute{
         // 2. get requests and pass to controller
         userRoute.get("/user/:id", UserController.retrieveUserByID);
 
-        userRoute.get("/user/", UserController.retrieveUser);
+        // userRoute.get("/user/", UserController.retrieveUser);
         
         userRoute.post("/user/", UserController.createUser);
 
