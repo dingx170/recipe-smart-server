@@ -54,23 +54,25 @@ class UserController{
         }catch(err){
             // console.log(err);
         }
-        
-        let vali = ans.password == password;
-        
-        console.log(ans.password + " input: " + password +" result is " + vali);
-        if(vali){
-            req.session.regenerate(function(err) {
-                if(err){
-                    return res.json({ret_code: 2, ret_msg: 'Login failed', userid: -1, userObj: null});                
-                }
-                
-                req.session.loginUser = ans.user_id;
-                
-                res.json({ret_code: 0, ret_msg: 'Login Successful', userid: req.session.loginUser, userObj: ans});                           
-            });
-        }else{
-            res.json({ret_code: 1, ret_msg: 'Wrong username or password'});
-        }  
+        if(ans) {
+            let vali = ans.password == password;
+            console.log(ans.password + " input: " + password +" result is " + vali);
+            if(vali){
+                req.session.regenerate(function(err) {
+                    if(err){
+                        return res.json({ret_code: 2, ret_msg: 'Login failed', userid: -1, userObj: null});                
+                    }
+                    
+                    req.session.loginUser = ans.user_id;
+                    
+                    res.json({ret_code: 0, ret_msg: 'Login Successful', userid: req.session.loginUser, userObj: ans});                           
+                });
+            }else{
+                res.json({ret_code: 1, ret_msg: 'Wrong username or password'});
+            }  
+        } else {
+            res.json({ret_code: 1, ret_msg: 'The user does not exist!'});
+        }
     }
 
     public static getSession(req: Request, res : Response){
