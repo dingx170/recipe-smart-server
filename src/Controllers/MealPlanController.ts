@@ -2,6 +2,7 @@ import {Request, Response} from "express";
 import {RecipeModel} from '../Models/RecipeModel';
 import {MealplanModel} from '../Models/MealPlanModel';
 import { IMealplanModel } from "../Interfaces/IMealplanModel";
+import { IngredientModel } from "../Models/IngredientModel";
 
 class MealplanController {
     private mealplan: MealplanModel
@@ -27,12 +28,23 @@ class MealplanController {
      * @param req 
      * @param res 
      */
-    public getShoppintListFromAMealplan(req: Request, res: Response) {
-        var memberId = req.params.memberid;
+    public async getShoppintListFromAMealplan(req: Request, res: Response) {
         var mealplanId = req.params.mealplanid;
-        console.log("Getting Member " + memberId + "'s mealplan " + mealplanId + "'s shoppinglist");
-        this.mealplan.retrieveShoppinglistFromMealplan(res, {mealplan_id: mealplanId, member_id: memberId});
-        console.log("View Member " + memberId + "'s mealplan " + mealplanId + "'s shoppinglist");
+        let plan: IMealplanModel;
+        try{
+            plan = await this.mealplan.findMealplanById(mealplanId);
+        }catch(err){
+            // console.log(err);
+        }
+
+        if(plan){
+            let idlist = [];
+            for(let i = 0; i < plan.shopping_list.length; i++){
+                console.log(plan.shopping_list[i].ingredient_id);
+                idlist.push(plan.shopping_list[i].ingredient_id);
+            }
+            IngredientModel.retrieveIngredientsForMealPlan(idlist, res);
+        }
     }
 
     /**

@@ -43,14 +43,14 @@ class IngredientModel{
       this.model = mongooseConnection.model<IIngredientModel>("Ingredients", this.schema);
     }
 
-    public static retrieveIngredientsForMealPlan(filter: Object): any { 
-      console.log(filter);
-  
-      let query = this.model.find(filter);
-      query.exec().then((res) => {
-        console.log(res);
-        return res;
-      });
+
+    public static retrieveIngredientsForMealPlan(idlist: Number[], response: any): any { 
+      console.log(idlist);
+      let query = this.model.find({'ingredient_id':{$in: idlist}});
+      query.exec((err, itemArray) => {
+        response.json(itemArray);
+      })
+      
     }
 
     public static retrieveIngredientsWithFilter(response: any, filter: Object): any { 

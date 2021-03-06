@@ -13,7 +13,7 @@ interface IMealplanModel extends Document {
     budget: Number;
     group: Number;
     recipe_list: [{recipe_id: Number, quantity: Number}];
-    shopping_list: [[Number, Number]];
+    shopping_list: [{ingredient_id: Number, quantity: Number}];
     meal_type: MealType;
     cuisine_type: CuisineType;
     feature_type: FeatureType;
