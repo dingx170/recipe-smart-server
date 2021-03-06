@@ -61,14 +61,12 @@ class UserModel {
     query.exec( (err, item) => {
         if(err){
           console.log(err);
-          res.json({ret_code: -1, ret_msg: 'User Not Exist', user_obj: {}});
+          res.json({ret_code: -1, ret_msg: 'User Not Exist', userid: myid, user_obj: {}});
         }
-        res.json({ret_code: 1, ret_msg: 'User Found', 
-                  user_obj: {user_name: item.name, 
-                             password: item.password, 
-                             email: item.email, 
-                             photo: null, 
-                             restrictions: item.restrictions}
+
+        console.log("get item: " + item);
+        res.json({ret_code: 1, ret_msg: 'User Found', userid: myid, 
+                  user_obj: item
                 });
       });
   }
@@ -141,6 +139,7 @@ class UserModel {
         resp.json(err);
       }
       else{
+        console.log("validation result: " + res);
         resp.json(res);
       }
 
