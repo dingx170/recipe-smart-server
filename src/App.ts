@@ -28,11 +28,11 @@ class App {
 
     // config middleware
     private setupMiddleware(): void {
-        this.expApp.use(bodyParser.json());
+        this.expApp.use(bodyParser.json({ limit: '50mb' }));
         
         // TO-USE-LATER
         // this.express.use(logger('dev'));
-        this.expApp.use(bodyParser.urlencoded({ extended: false }));
+        this.expApp.use(bodyParser.urlencoded({ extended: false, limit: '50mb' }));
         this.expApp.use(session({
             name: 'skey',
             secret: 'recipesmart',  // signature for session id

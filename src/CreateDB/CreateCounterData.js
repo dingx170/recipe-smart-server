@@ -20,7 +20,7 @@ usersCollection.insert(
 usersCollection.insert(
     {
         "name": "recipe",
-        "count": 10,
+        "count": 101,
     }  
 );
 
