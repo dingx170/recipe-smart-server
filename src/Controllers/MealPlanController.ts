@@ -1,6 +1,7 @@
 import {Request, Response} from "express";
 import {RecipeModel} from '../Models/RecipeModel';
 import {MealplanModel} from '../Models/MealPlanModel';
+import { IMealplanModel } from "../Interfaces/IMealplanModel";
 
 class MealplanController {
     private mealplan: MealplanModel
@@ -45,6 +46,24 @@ class MealplanController {
         console.log("Getting Member " + memberId + "'s mealplan " + mealplanId + "'s recipelist");
         this.mealplan.retrieveRecipelistFromMealplan(res, {mealplan_id: mealplanId, member_id: memberId});
         console.log("View Member " + memberId + "'s mealplan " + mealplanId + "'s recipelist");
+    }
+
+    public async getRecipesFromMealplan(req: Request, res: Response){
+        var mealplanId = req.params.mealplanid;
+        let plan: IMealplanModel;
+        try{
+            plan = await this.mealplan.findMealplanById(mealplanId);
+        }catch(err){
+            // console.log(err);
+        }
+
+        if(plan){
+            let recipeId_list = [];
+            for(let i = 0; i < plan.recipe_list.length; i++){
+                recipeId_list.push(plan.recipe_list[i].recipe_id);
+            }
+            RecipeModel.retrieveRecipeListByIdlist(recipeId_list, res);
+        }
     }
 
     /**

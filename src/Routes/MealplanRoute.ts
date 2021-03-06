@@ -13,7 +13,7 @@ class MealplanRoute {
             this.mealplanController.getShoppintListFromAMealplan(req, res);
         });
         mealplanRouter.get('/mealplan/:memberid/:mealplanid/recipelist', (req, res)=> {
-            this.mealplanController.getRecipeListFromAMealplan(req, res);
+            this.mealplanController.getRecipesFromMealplan(req, res);
         });
         mealplanRouter.put('/mealplan/:memberid/:mealplanid/shoppinglist', (req, res)=> {
             this.mealplanController.updateShoppinglistOfAMealplan(req, res);

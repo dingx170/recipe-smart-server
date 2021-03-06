@@ -117,6 +117,10 @@ class MealplanModel {
       });
     }
 
+    public async findMealplanById(id: Number){
+      return await this.model.findOne({mealplan_id: id});
+    }
+
     
 
 }
