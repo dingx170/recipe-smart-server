@@ -143,6 +143,7 @@ class MealplanController {
         mealplan['shopping_list'] = shoppinglist;
         mealplan['budget']= budget;
         mealplan['group'] = group;
+        mealplan['date'] = Date.now();
         if(meal_type){
             mealplan['meal_type'] = meal_type;
         }

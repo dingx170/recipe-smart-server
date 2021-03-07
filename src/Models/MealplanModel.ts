@@ -64,8 +64,8 @@ class MealplanModel {
             response.send(err);
             return;
           }
-    
-          body.mealplan_id = record.count + 1;
+          
+          body['mealplan_id'] = record.count + 1;
     
           this.model(body).save((err, mealplan) => {
             if (err) {
