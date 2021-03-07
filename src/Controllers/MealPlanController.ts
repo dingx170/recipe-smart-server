@@ -135,14 +135,15 @@ class MealplanController {
 
         let shoppinglist = this.genearteShoppingList(recipes);
         let recipelist = this.generateRecipeId(recipes);
-        let mealplan_id = this.idGenerator;
+        // let mealplan_id = this.idGenerator;
         console.log(member_id + " is adding mealpplan");
         mealplan['member_id'] = member_id;
-        mealplan['mealplan_id'] = mealplan_id;
+        mealplan['mealplan_id'] = 0;
         mealplan['recipe_list'] = recipelist;
         mealplan['shopping_list'] = shoppinglist;
         mealplan['budget']= budget;
         mealplan['group'] = group;
+        mealplan['date'] = new Date();
         if(meal_type){
             mealplan['meal_type'] = meal_type;
         }
