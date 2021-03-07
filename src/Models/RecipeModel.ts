@@ -97,11 +97,8 @@ class RecipeModel {
     });
   }
 
-  public static retrieveRecipeListByIdlist(recipeId_list: Number[], response: any){
-    let query = this.model.find({'recipe_id':{$in: recipeId_list}});
-    query.exec((err, itemArray)=>{
-      response.json(itemArray);
-    });
+  public static async retrieveRecipeListByIdlist(recipeId_list: Number[], response: any){
+    return await this.model.find({'recipe_id':{$in: recipeId_list}});  
   }
 
   /* Member methods */

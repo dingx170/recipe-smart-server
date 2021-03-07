@@ -60,7 +60,15 @@ class MealplanController {
             for(let i = 0; i < plan.recipe_list.length; i++){
                 recipeId_list.push(plan.recipe_list[i].recipe_id);
             }
-            RecipeModel.retrieveRecipeListByIdlist(recipeId_list, res);
+            let recipe_list = await RecipeModel.retrieveRecipeListByIdlist(recipeId_list, res);
+            let result = [];
+            for(let i = 0; i < recipe_list; i++){
+                let recipe_id = recipe_list[i].recipe_id;
+                let index = plan.recipe_list.findIndex((obj=>(obj.recipe_id == recipe_id)));
+                let quantity = plan.recipe_list[index].quantity;
+                result.push({recipe: recipe_list[i], quantity: quantity});
+            }
+            res.json(result);
         }
     }
 
