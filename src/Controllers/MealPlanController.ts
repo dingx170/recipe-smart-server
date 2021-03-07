@@ -123,7 +123,7 @@ class MealplanController {
     public postMealPlanCustomized(req: Request, res: Response) {
         
         let member_id = req.params.memberid;
-        let mealplan: IMealplanModel;
+        let mealplan = {};
         let body = req.body;
         let recipes = body.recipe_list;
         let budget = req.body.budget; // < budget
@@ -137,23 +137,23 @@ class MealplanController {
         let recipelist = this.generateRecipeId(recipes);
         // let mealplan_id = this.idGenerator;
         console.log(member_id + " is adding mealpplan");
-        mealplan.member_id = member_id;
-        mealplan.recipe_list = recipelist;
-        mealplan.shopping_list = shoppinglist;
-        mealplan.budget= budget;
-        mealplan.group= group;
-        //mealplan.date = new Date();
+        mealplan['member_id'] = member_id;
+        mealplan['mealplan_id'] = '0';
+        mealplan['recipe_list'] = recipelist;
+        mealplan['shopping_list'] = shoppinglist;
+        mealplan['budget']= budget;
+        mealplan['group'] = group;
         if(meal_type){
-            mealplan.meal_type = meal_type;
+            mealplan['meal_type'] = meal_type;
         }
         if(cuisine_type){
-            mealplan.cuisine_type = cuisine_type;
+            mealplan['cuisine_type'] = cuisine_type;
         }
         if(feature_type){
-            mealplan.feature_type= feature_type;
+            mealplan['feature_type'] = feature_type;
         }
         if(allergy_type){
-            mealplan.restrictions = allergy_type;
+            mealplan['restrictions'] = allergy_type;
         }
 
         console.log(mealplan);
