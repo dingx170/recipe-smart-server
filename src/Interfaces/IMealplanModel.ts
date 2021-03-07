@@ -12,8 +12,8 @@ interface IMealplanModel extends Document {
     date: Date;
     budget: Number;
     group: Number;
-    recipe_list: [{recipe_id: Number, quantity: Number}];
-    shopping_list: [{name: String, unit: String, count: Number}];
+    recipe_list: {recipe_id: Number, quantity: Number}[];
+    shopping_list: {name: String, unit: String, count: Number}[];
     meal_type: MealType;
     cuisine_type: CuisineType;
     feature_type: FeatureType;
