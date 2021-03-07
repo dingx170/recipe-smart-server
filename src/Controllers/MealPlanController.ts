@@ -121,7 +121,7 @@ class MealplanController {
             filter['feature_type'] = feature_type;
         }
         if(allergy_type){
-            filter['allergy_type'] = {'$nin': allergy_type};
+            filter['restrictions'] = {'$nin': allergy_type};
         }
 
         console.log(filter, meal_type);
