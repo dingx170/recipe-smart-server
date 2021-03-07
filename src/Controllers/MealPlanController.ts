@@ -128,17 +128,17 @@ class MealplanController {
         let recipes = body.recipe_list;
         let budget = req.body.budget; // < budget
         let group = req.body.group; // < group
-        let meal_type: string[] = req.body.meal_type; 
-        let cuisine_type: string[] = req.body.cuisine_type; // == ||
-        let feature_type: string[] = req.body.feature_type; // == ||
-        let allergy_type: string[] = req.body.allergy; // == !(||)
+        let meal_type: any = req.body.meal_type; 
+        let cuisine_type: any = req.body.cuisine_type; // == ||
+        let feature_type: any = req.body.feature_type; // == ||
+        let allergy_type: any = req.body.allergy; // == !(||)
 
         let shoppinglist = this.genearteShoppingList(recipes);
         let recipelist = this.generateRecipeId(recipes);
-        let mealplan_id = this.idGenerator;
+        // let mealplan_id = this.idGenerator;
         console.log(member_id + " is adding mealpplan");
         mealplan['member_id'] = member_id;
-        mealplan['mealplan_id'] = mealplan_id;
+        mealplan['mealplan_id'] = '0';
         mealplan['recipe_list'] = recipelist;
         mealplan['shopping_list'] = shoppinglist;
         mealplan['budget']= budget;
@@ -153,7 +153,7 @@ class MealplanController {
             mealplan['feature_type'] = feature_type;
         }
         if(allergy_type){
-            mealplan['allergy_type'] = allergy_type;
+            mealplan['restrictions'] = allergy_type;
         }
 
         console.log(mealplan);
@@ -266,10 +266,10 @@ class MealplanController {
      * @param budget budget
      * @param dish total number of dishes required
      */
-    private genearteRecipeList(recipelist, budget: number, dish: number): Object[] {
+    private genearteRecipeList(recipelist, budget: number, dish: number): any {
         console.log('recipelist');
         console.log(typeof recipelist);
-        let recipes: {recipe: any, quatity: Number}[] = [];
+        let recipes: {recipe: any, quatity: Number}[];
         let total = 0;
         while(total < dish){
             var index = MealplanController.generateRandomNumber(recipelist.length);

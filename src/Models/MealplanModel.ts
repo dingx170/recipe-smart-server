@@ -5,6 +5,7 @@ import {CuisineType} from '../Enums/CuisineType'
 import {FeatureType} from '../Enums/FeatureType'
 import {AllergyType} from '../Enums/AllergyType'
 import { IMealplanModel } from "../Interfaces/IMealplanModel"
+import {CounterModel} from './CounterModel';
 
 let mongooseConnection = DataAccess.mongooseConnection;
 
@@ -58,12 +59,24 @@ class MealplanModel {
     }
 
     public addNewMealPlan(response: any, body: any) {
-        this.model(body).save((err, mealplan)=>{
-          if(err) {
+        CounterModel.model.findOneAndUpdate({"name": "mealplan"}, {$inc: {'count': 1}}, {useFindAndModify: false}, (err, record) => {
+          if (err){
             response.send(err);
+            return;
           }
-          response.json(mealplan);
-        })
+    
+          body.mealplan_id = record.count + 1;
+    
+          this.model(body).save((err, mealplan) => {
+            if (err) {
+              response.send(err);
+              return;
+            }
+            response.json(mealplan);
+          });
+          
+        });
+        
     }
     
     //TODO: ID data type need to be determined
