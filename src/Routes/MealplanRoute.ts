@@ -9,7 +9,7 @@ class MealplanRoute {
         mealplanRouter.get('/mealplan/:memberid', (req, res)=> {
             this.mealplanController.getMealplansByMemberId(req, res);
         })
-        mealplanRouter.get('/mealplan/:memberid/:mealplanid/shoppinglist', (req, res)=> {
+        mealplanRouter.get('/mealplan/:memberid/plans/:mealplanid/shoppinglist', (req, res)=> {
             this.mealplanController.getShoppintListFromAMealplan(req, res);
         });
         mealplanRouter.get('/mealplan/:memberid/plans/:mealplanid/recipelist', (req, res)=> {
