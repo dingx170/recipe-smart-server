@@ -62,7 +62,7 @@ class MealplanController {
             }
             let recipe_list = await RecipeModel.retrieveRecipeListByIdlist(recipeId_list, res);
             let result = [];
-            for(let i = 0; i < recipe_list; i++){
+            for(let i = 0; i < recipe_list.length; i++){
                 let recipe_id = recipe_list[i].recipe_id;
                 let index = plan.recipe_list.findIndex((obj=>(obj.recipe_id == recipe_id)));
                 let quantity = plan.recipe_list[index].quantity;
