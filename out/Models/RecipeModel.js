@@ -81,6 +81,12 @@ class RecipeModel {
             return res;
         });
     }
+    static retrieveRecipeListByIdlist(recipeId_list, response) {
+        let query = this.model.find({ 'recipe_id': { $in: recipeId_list } });
+        query.exec((err, itemArray) => {
+            response.json(itemArray);
+        });
+    }
     /* Member methods */
     static retrieveRecipesByMemberID(response, filter) {
         let query = this.model.find(filter);
