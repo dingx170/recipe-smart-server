@@ -359,10 +359,13 @@ class MealplanController {
         let recipelist: {recipe_id: Number, quantity: Number}[] = [];
         for(let i = 0; i < recipes.length; i++){
             console.log(recipes[i]);
-            let recipe = recipes[i].recipe;
-            let quantity = recipes[i].quantity;
-            let recipe_id = recipe.recipe_id;
-            recipelist.push({recipe_id: recipe_id, quantity: quantity});
+            if(recipes[i].quantity != 0){
+                let recipe = recipes[i].recipe;
+                let quantity = recipes[i].quantity;
+                let recipe_id = recipe.recipe_id;
+                recipelist.push({recipe_id: recipe_id, quantity: quantity});
+            }
+            
         }
         return recipelist;
     }
