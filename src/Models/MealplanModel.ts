@@ -30,7 +30,7 @@ class MealplanModel {
                 budget: Number,
                 group: Number,
                 recipe_list: [{recipe_id: Number, quantity: Number}],
-                shopping_list: [{ingredient_id: Number, quantity: Number}],
+                shopping_list: [{name: String, unit: String, count: Number}],
                 meal_type: [{
                     type: String,
                     enum: MealType,
@@ -93,17 +93,6 @@ class MealplanModel {
         console.log(item);
         response.json(item);
       })
-    }
-
-    public updateShoppinglist(response: any, filter: Object, body: any) {
-      this.model.findOneAndUpdate(filter, body, {new: true}, (err, mealplan) => {
-        if(err){
-          response.send(err);
-        }
-        console.log("Update mealplan" + mealplan.mealplan_id)
-        response.json(mealplan.shopping_list);
-      });
-      
     }
 
     public removeMealplan(response: any, filter: Object) {
