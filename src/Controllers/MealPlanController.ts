@@ -3,6 +3,10 @@ import {RecipeModel} from '../Models/RecipeModel';
 import {MealplanModel} from '../Models/MealPlanModel';
 import { IMealplanModel } from "../Interfaces/IMealplanModel";
 import { IngredientModel } from "../Models/IngredientModel";
+import {MealType} from "../Enums/MealType";
+import {CuisineType} from "../Enums/CuisineType";
+import {FeatureType} from "../Enums/FeatureType";
+import {AllergyType} from "../Enums/AllergyType";
 
 class MealplanController {
     private mealplan: MealplanModel
@@ -98,22 +102,23 @@ class MealplanController {
 
         let budget = req.query.budget; // < budget
         let group = req.query.group;
-        let meal_type: string[] = req.query.meal_type; // < group
-        let cuisine_type: string[] = req.query.cuisine_type; // == ||
-        let feature_type: string[] = req.query.feature_type; // == ||
-        let allergy_type: string[] = req.query.allergy; // == !(||)
-
+        let meal_type = req.query.meal_type; // < group
+        let cuisine_type = req.query.cuisine_type; // == ||
+        let feature_type = req.query.feature_type; // == ||
+        let allergy_type: any[] = req.query.restrictions; // == !(||)
+        console.log(allergy_type[0] + "   allergy type..");
+        console.log(allergy_type[1] + "   allergy type..");
         var filter = {};
         filter['cost']= {'$lte': budget};
         filter['group'] = group;
-        if(meal_type){
-            filter['meal_type'] = {'$in': meal_type};
+        if(meal_type != 'None'){
+            filter['meal_type'] = meal_type;
         }
-        if(cuisine_type){
-            filter['cuisine_type'] = {'$in': cuisine_type};
+        if(cuisine_type != 'None'){
+            filter['cuisine_type'] = cuisine_type;
         }
-        if(feature_type){
-            filter['feature_type'] = {'$in': feature_type};
+        if(feature_type != 'None'){
+            filter['feature_type'] = feature_type;
         }
         if(allergy_type){
             filter['allergy_type'] = {'$nin': allergy_type};
