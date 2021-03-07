@@ -15,9 +15,6 @@ class MealplanRoute {
         mealplanRouter.get('/mealplan/:memberid/:mealplanid/recipelist', (req, res)=> {
             this.mealplanController.getRecipesFromMealplan(req, res);
         });
-        mealplanRouter.put('/mealplan/:memberid/:mealplanid/shoppinglist', (req, res)=> {
-            this.mealplanController.updateShoppinglistOfAMealplan(req, res);
-        });
         mealplanRouter.delete('/mealplan/:memberid/:mealplanid', (req, res)=> {
             this.mealplanController.deleteMealplan(req, res);
         });

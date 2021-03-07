@@ -30,21 +30,7 @@ class MealplanController {
      */
     public async getShoppintListFromAMealplan(req: Request, res: Response) {
         var mealplanId = req.params.mealplanid;
-        let plan: IMealplanModel;
-        try{
-            plan = await this.mealplan.findMealplanById(mealplanId);
-        }catch(err){
-            // console.log(err);
-        }
-
-        if(plan){
-            let idlist = [];
-            for(let i = 0; i < plan.shopping_list.length; i++){
-                console.log(plan.shopping_list[i].ingredient_id);
-                idlist.push(plan.shopping_list[i].ingredient_id);
-            }
-            IngredientModel.retrieveIngredientsForMealPlan(idlist, res);
-        }
+        this.mealplan.retrieveShoppinglistFromMealplan(res, {mealplan_id: mealplanId});
     }
 
     /**
@@ -83,14 +69,14 @@ class MealplanController {
      * @param req 
      * @param res 
      */
-    public updateShoppinglistOfAMealplan(req: Request, res: Response){
-        var memberId = req.params.memberid;
-        var mealplanId = req.params.mealplanid;
-        var shoppinglist = req.body;
-        console.log("Update Member " + memberId + "'s mealplan " + mealplanId + "'s shoppinglist");
-        this.mealplan.updateShoppinglist(res, {mealplan_id: mealplanId, member_id: memberId}, shoppinglist);
-        console.log("View Member " + memberId + "'s mealplan " + mealplanId + "'s shoppinglist");
-    }
+    // public updateShoppinglistOfAMealplan(req: Request, res: Response){
+    //     var memberId = req.params.memberid;
+    //     var mealplanId = req.params.mealplanid;
+    //     var shoppinglist = req.body;
+    //     console.log("Update Member " + memberId + "'s mealplan " + mealplanId + "'s shoppinglist");
+    //     this.mealplan.updateShoppinglist(res, {mealplan_id: mealplanId, member_id: memberId}, shoppinglist);
+    //     console.log("View Member " + memberId + "'s mealplan " + mealplanId + "'s shoppinglist");
+    // }
 
 
   
@@ -327,22 +313,22 @@ class MealplanController {
      */
     public genearteShoppingList(recipelist: any[]) {
         //console.log(recipelist.length);
-        let test: {ingredient_id: Number, quantity: Number}[] = [];
+        let test: {name: String, unit: String, count: Number}[] = [];
         for(let i = 0; i < recipelist.length; i++) {
-            let ingredientlist:[Number, Number][] = recipelist[i].recipe.ingredients;
+            let ingredientlist = recipelist[i].recipe.ingredients;
             var recipe = recipelist[i];
             //console.log(recipe.recipe.ingredients);
             for(let i = 0; i < ingredientlist.length; i++) {
                 //console.log(ingredientlist[i]);
                 var ingredient = ingredientlist[i];
-                let ingredientId: Number = ingredient[0];
-                var index = test.findIndex((obj=>obj.ingredient_id == ingredientId))
-                //console.log(index);
+                let ingredientName = ingredient.name;
+                let ingredientUnit = ingredient.unit;
+                var index = test.findIndex((obj=>(obj.name == ingredientName && obj.unit == ingredientUnit)))
                 if(index == -1){
-                    var quatity = ingredient[1];
-                    test.push({ingredient_id:ingredientId, quantity:quatity});
+                    var quatity = ingredient.count;
+                    test.push({name:ingredientName, unit: ingredientUnit, count:quatity});
                 } else {
-                    test[index].quantity = test[index].quantity.valueOf() + ingredient[1].valueOf();
+                    test[index].count = test[index].count.valueOf() + ingredient.count.valueOf();
                 }
             }
         }
