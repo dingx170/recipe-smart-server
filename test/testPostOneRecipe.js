@@ -4,7 +4,7 @@ var chaiHttp = require('chai-http')
 var expect = chai.expect;
 chai.use(chaiHttp);
 
-describe('Test getting one recipe', function(){
+describe('Test posting one recipe', function(){
     var response;
     var responseBody;
 
