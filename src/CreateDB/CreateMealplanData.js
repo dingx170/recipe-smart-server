@@ -4,8 +4,8 @@ mealplansCollection = db.getCollection("mealplans")
 mealplansCollection.remove({})
 
 mealplansCollection.insert({
-    mealplan_id: 11,
-    member_id: 123,
+    mealplan_id: 1,
+    member_id: 1,
     budget: 30,
     date: new Date("2021-02-15T17:00:00Z"),
     group: 2,
@@ -18,8 +18,8 @@ mealplansCollection.insert({
 })
 
 mealplansCollection.insert({
-    mealplan_id: 12,
-    member_id: 123,
+    mealplan_id: 2,
+    member_id: 1,
     budget: 20,
     date: new Date("2021-01-21T15:21:00Z"),
     group: 2,
@@ -32,8 +32,8 @@ mealplansCollection.insert({
 })
 
 mealplansCollection.insert({
-    mealplan_id: 13,
-    member_id: 123,
+    mealplan_id: 3,
+    member_id: 2,
     budget: 50,
     date: new Date("2021-01-15T16:05:00Z"), 
     group: 3,

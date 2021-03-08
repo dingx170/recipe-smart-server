@@ -6,7 +6,7 @@ usersCollection.remove({})
 usersCollection.insert(
     {
         "name": "user",
-        "count": 10,
+        "count": 5,
     }  
 );
 
@@ -20,13 +20,13 @@ usersCollection.insert(
 usersCollection.insert(
     {
         "name": "recipe",
-        "count": 101,
+        "count": 20,
     }  
 );
 
 usersCollection.insert(
     {
         "name": "mealplan",
-        "count": 10,
+        "count": 3,
     }  
 );
