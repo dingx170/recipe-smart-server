@@ -22,7 +22,7 @@ describe('Test getting list of recipes', function(){
 
         it('Should return a list of recipe object', function (){
             expect(response).to.have.status(200);
-            expect(responseBody).to.lengthOf.above(20);
+            expect(responseBody).to.lengthOf.above(19);
             expect(response.body[0]).to.be.a('object');
         });
     
