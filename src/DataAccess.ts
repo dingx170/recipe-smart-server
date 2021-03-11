@@ -3,7 +3,7 @@ import mongoose from "mongoose"
 class DataAccess {
     static mongooseInstance: any;
     static mongooseConnection: mongoose.Connection;
-    static DB_CONNECTION_STRING: string = 'mongodb://localhost:27017/testDB'; // 'mongodb://dbAdmin:test@localhost:3000/toDoSample?authSource=admin';
+    static DB_CONNECTION_STRING: string = "mongodb+srv://dbAdmin:recipesmart@cluster0.0d86q.mongodb.net/recipeSmartDB?retryWrites=true&w=majority";//'mongodb://localhost:27017/testDB'; 
 
     constructor() {
         DataAccess.connect();
