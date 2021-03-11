@@ -1,6 +1,6 @@
 import {Request, Response} from "express";
 import {RecipeModel} from '../Models/RecipeModel';
-import {MealplanModel} from '../Models/MealPlanModel';
+import {MealplanModel} from '../Models/MealplanModel';
 import { IMealplanModel } from "../Interfaces/IMealplanModel";
 import { IngredientModel } from "../Models/IngredientModel";
 import {MealType} from "../Enums/MealType";
