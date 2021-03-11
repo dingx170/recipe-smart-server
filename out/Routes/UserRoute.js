@@ -9,9 +9,9 @@ class UserRoute {
         // userRoute.get("/user/", UserController.retrieveUser);
         userRoute.post("/user", UserController_1.UserController.createUser);
         userRoute.put("/user/:id", UserController_1.UserController.updateUser);
-        userRoute.post("/login", UserController_1.UserController.logincheck);
-        userRoute.get("/login", UserController_1.UserController.getSession);
-        userRoute.get("/validation", UserController_1.UserController.validateNameEmail);
+        userRoute.post("/api/login", UserController_1.UserController.logincheck);
+        userRoute.get("/api/login", UserController_1.UserController.getSession);
+        userRoute.get("/api/validation", UserController_1.UserController.validateNameEmail);
     }
 }
 exports.UserRoute = UserRoute;

@@ -1331,7 +1331,7 @@ class LoginService {
     constructor(http, shareDataService) {
         this.http = http;
         this.shareDataService = shareDataService;
-        //private base_api:string = "http://localhost:8080";
+        //private base_api:string = "http://localhost:8080/";
         this.base_api = "/";
         this.loginStatusChange = new rxjs__WEBPACK_IMPORTED_MODULE_2__["Subject"]();
         this.httpOptions = {
@@ -1347,7 +1347,8 @@ class LoginService {
      *
      */
     login(auth) {
-        let url = this.base_api + "/login";
+        let url = this.base_api + "api/login";
+        console.log(url);
         return this.http.post(url, auth, this.httpOptions).pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_3__["catchError"])(this.handleError('user login failed')));
     }
     logOut() {
@@ -3434,7 +3435,7 @@ class UserService {
      */
     validateNameEmail(email, name) {
         // let url:string = `${this.base_api}/validation/?name=${name}&?email=${email}`;
-        let url = this.base_api + "/validation/?name=" + name + "&?email=" + email;
+        let url = this.base_api + "/api/validation/?name=" + name + "&?email=" + email;
         return this.http.get(url).pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_3__["catchError"])(this.handleError(`check username and email username = ${name} email = ${email}`)));
     }
     /**

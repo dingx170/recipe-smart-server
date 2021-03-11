@@ -16,11 +16,11 @@ class UserRoute{
 
         userRoute.put("/user/:id", UserController.updateUser);
 
-        userRoute.post("/login", UserController.logincheck);
+        userRoute.post("/api/login", UserController.logincheck);
 
-        userRoute.get("/login", UserController.getSession);
+        userRoute.get("/api/login", UserController.getSession);
 
-        userRoute.get("/validation", UserController.validateNameEmail);
+        userRoute.get("/api/validation", UserController.validateNameEmail);
     }
 
 
