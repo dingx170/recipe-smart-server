@@ -6,7 +6,7 @@
   "scripts": {
     "build": "tsc",
     "prestart": "npm run build",
-    "start": "node ."
+    "start": "node out/AppServer.js"
   },
   "repository": {
     "type": "git",
