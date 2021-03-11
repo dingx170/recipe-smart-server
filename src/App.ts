@@ -67,7 +67,7 @@ class App {
         
         // this.expApp.set('view engine', 'ejs');
 
-        // this.expApp.use(express.static(__dirname + './src'));
+         this.expApp.use('/', express.static(__dirname + '/dist/recipe-smart-client'));
 
         //TempPageRoute.registerRoutes(router);
         
