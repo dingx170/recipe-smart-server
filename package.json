@@ -4,8 +4,6 @@
   "description": "",
   "main": "out/AppServer.js",
   "scripts": {
-    "build": "tsc",
-    "prestart": "npm run build",
     "start": "node out/AppServer.js"
   },
   "repository": {
