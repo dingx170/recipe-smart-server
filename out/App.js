@@ -72,7 +72,7 @@ class App {
         // this.expApp.use("/users", UserRoute);
         // EJS 
         // this.expApp.set('view engine', 'ejs');
-        this.expApp.use('/page', express_1.default.static(__dirname + '/dist/recipe-smart-client'));
+        this.expApp.use('/', express_1.default.static(__dirname + '/dist/recipe-smart-client'));
         //TempPageRoute.registerRoutes(router);
         this.expApp.use('/', router);
     }
