@@ -25,5 +25,5 @@ class DataAccess {
     }
 }
 exports.DataAccess = DataAccess;
-DataAccess.DB_CONNECTION_STRING = 'mongodb://localhost:27017/testDB'; // 'mongodb://dbAdmin:test@localhost:3000/toDoSample?authSource=admin';
+DataAccess.DB_CONNECTION_STRING = "mongodb+srv://dbAdmin:recipesmart@cluster0.0d86q.mongodb.net/recipeSmartDB?retryWrites=true&w=majority"; //'mongodb://localhost:27017/testDB'; 
 DataAccess.connect();
