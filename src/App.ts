@@ -49,7 +49,7 @@ class App {
 
     // config API endpoints
     private setupRoutes(): void {
-
+        this.expApp.use('/', express.static(__dirname + '/dist/recipe-smart-client'));
         let router =  express.Router();
 
         // 1. register routes
@@ -67,7 +67,7 @@ class App {
         
         // this.expApp.set('view engine', 'ejs');
 
-         this.expApp.use('/', express.static(__dirname + '/dist/recipe-smart-client'));
+        
 
         //TempPageRoute.registerRoutes(router);
         
